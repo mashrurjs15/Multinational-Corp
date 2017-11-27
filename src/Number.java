@@ -4,10 +4,7 @@ public class Number implements Feature{
 	private Double value;
 	private static final String TYPE = "Number";
 	
-	public Number(String s) {
-		name = s;
-	}
-	
+
 	public Number(String s, Double d) {
 		name = s;
 		value = d;
