@@ -1,0 +1,22 @@
+import javax.swing.DefaultListModel;
+
+public class Entity {
+	private String s;
+	private DefaultListModel<Feature> features;
+	
+	public Entity(String t) {
+		s = t;
+	}
+	
+	public String getString() {
+		return s;
+	}
+
+	@Override
+	public String toString() {
+		return s;
+	}
+	
+	
+
+}
