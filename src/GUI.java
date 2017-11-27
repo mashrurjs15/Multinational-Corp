@@ -25,36 +25,50 @@ public class GUI{
 	}
 	
 	public void setUp() {
-		frame = new JFrame("Machine Learning");	
+		
+		//initiate all GUI objects
+		frame = new JFrame("Machine Learning");
+		featuresPane = new JScrollPane(features);
+		trainingPane = new JScrollPane(training);
+		unsolvedPane = new JScrollPane(unsolved);
+		menuBar = new JMenuBar();
+		menu = new JMenu("Menu");
+		addFeature = new JMenuItem("Add feature");
+		removeFeature = new JMenuItem("Remove feature");
+		reset = new JMenuItem("Reset all to start again");
+		featuresLabel = new JLabel("Features");
+		addTraining = new JButton("Add to training List");
+		editTraining = new JButton("Edit training list");
+		removeTraining = new JButton("Remove from training List");
+		addUnsolved = new JButton("Add to unsolved List");
+		editUnsolved = new JButton("Edit unsolved list");
+		removeUnsolved = new JButton("Remove from unsolved List");
+		trainingLabel = new JLabel("Training Entities");
+		unsolvedLabel = new JLabel("Unsolved Entities");
+		
+		//setup overall frame
 		frame.setLayout(new GridBagLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
+		frame.setJMenuBar(menuBar);
 		
+		//setup scrollpanes
 		training.setSize(20,40);
 		unsolved.setSize(20,40);
-		
-		featuresPane = new JScrollPane(features);
-		trainingPane = new JScrollPane(training);
-		unsolvedPane = new JScrollPane(unsolved);
 		features.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		training.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		unsolved.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		menuBar = new JMenuBar();
-		menu = new JMenu("Menu");
+		//setup all menu bars
 		menuBar.add(menu);
-		
-
-		addFeature = new JMenuItem("Add feature");
-		removeFeature = new JMenuItem("Remove feature");
-		reset = new JMenuItem("Reset all to start again");
 		menu.add(reset);
 		menu.add(addFeature);
 		menu.add(removeFeature);
 		
-		featuresLabel = new JLabel("Features");
 		
+		
+		//Place all buttons and labels where they should on on the frame
 		c.weightx = 0.0;
 	    c.weighty = 0.0;
 	    c.gridx = 0;
@@ -65,28 +79,21 @@ public class GUI{
 	    c.gridx = 1;
 	    c.gridy = 0;
 		frame.add(features,c);
-		
-		addTraining = new JButton("Add to training List");
-		editTraining = new JButton("Edit training list");
-		removeTraining = new JButton("Remove from training List");
-		addUnsolved = new JButton("Add to unsolved List");
-		editUnsolved = new JButton("Edit unsolved list");
-		removeUnsolved = new JButton("Remove from unsolved List");
 		c.weightx = 0.25;
 	    c.weighty = 0.0;
 	    c.gridx = 0;
 	    c.gridy = 5;
 	    frame.add(addTraining,c);
-		c.weightx = 0.25;
-	    c.weighty = 0.0;
-	    c.gridx = 0;
-	    c.gridy = 4;
-	    frame.add(removeTraining,c);
 	    c.weightx = 0.25;
 	    c.weighty = 0.0;
 	    c.gridx = 0;
 	    c.gridy = 3;
 		frame.add(editTraining,c);
+		c.weightx = 0.25;
+	    c.weighty = 0.0;
+	    c.gridx = 0;
+	    c.gridy = 4;
+	    frame.add(removeTraining,c);
 		c.weightx = 0.25;
 	    c.weighty = 0.0;
 	    c.gridx = 1;
@@ -102,9 +109,6 @@ public class GUI{
 	    c.gridx = 1;
 	    c.gridy = 3;
 		frame.add(editUnsolved,c);
-		
-		trainingLabel = new JLabel("Training Entities");
-		unsolvedLabel = new JLabel("Unsolved Entities");
 		c.weightx = 0.5;
 	    c.weighty = 0.8;
 	    c.gridx = 0;
@@ -126,9 +130,10 @@ public class GUI{
 	    c.gridy = 1;
 		frame.add(unsolvedLabel,c);
 		
-		frame.setJMenuBar(menuBar);
-		frame.setVisible(true);
+		//show frame
 		frame.setSize(800, 400);
+		frame.setVisible(true);
+		
 	}
 	
 	public String nameOption(String s) {
