@@ -27,5 +27,20 @@ public class Entity {
 	public void setFeatures(DefaultListModel<Feature> features) {
 		this.features = features;
 	}
+	public Feature getUnsolvedFeature() {
+		
+		for(Feature f: listOfFeature) {
+			if(f.isEmpty()) return f;
+		}
+		return null;
+	}
 	
+	public Feature getFeature(String s) {
+		
+		for (Feature f : listOfFeature) {
+			if(s.equals(f.GetName())) {
+				return f;
+			}
+		}return null;
+	}
 }

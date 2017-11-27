@@ -25,7 +25,7 @@ public class kNNStrategy {
 	public double solveKNN() {
 
 		double temp = 0;
-		//this.unsolvedFeature = unsolvedEntity.getUnsolvedFeature(); // Finds the empty Feature and store it into unsolvedFeature
+		this.unsolvedFeature = unsolvedEntity.getUnsolvedFeature(); // Finds the empty Feature and store it into unsolvedFeature
 		
 		List<Double> sortedKeys = new ArrayList<Double>(resultList.size());
 		sortedKeys.addAll(resultList.keySet());
@@ -39,7 +39,7 @@ public class kNNStrategy {
 		}
 			
 		for (double k : kKeys) {
-			//tally += resultList.get(k).getFeature(unsolvedFeature.GetName()).GetValue();
+			tally += resultList.get(k).getFeature(unsolvedFeature.GetName()).GetValue();
 		}
 		
 		return tally/numberOfNeighbors;
