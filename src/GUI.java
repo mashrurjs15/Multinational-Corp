@@ -9,7 +9,7 @@ public class GUI{
 	private JList<Feature> features;
 	private JMenu menu;
 	private JMenuBar menuBar;
-	private JMenuItem  reset, addFeature, removeFeature;
+	private JMenuItem  reset, addFeature, removeFeature, solve;
 	private JButton addTraining, editTraining, removeTraining, addUnsolved, editUnsolved, removeUnsolved;
 	@SuppressWarnings("unused")
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
@@ -29,6 +29,7 @@ public class GUI{
 		unsolvedPane = new JScrollPane(unsolved);
 		menuBar = new JMenuBar();
 		menu = new JMenu("Menu");
+		solve = new JMenuItem("Solve Examples");
 		addFeature = new JMenuItem("Add feature");
 		removeFeature = new JMenuItem("Remove feature");
 		reset = new JMenuItem("Reset all to start again");
@@ -58,6 +59,7 @@ public class GUI{
 		
 		//setup all menu bars
 		menuBar.add(menu);
+		menu.add(solve);
 		menu.add(reset);
 		menu.add(addFeature);
 		menu.add(removeFeature);
@@ -138,18 +140,49 @@ public class GUI{
 	}
 	
 	public Double xOption(String s) {
-		return Double.parseDouble(JOptionPane.showInputDialog(frame,
-				"What is the x value of s?", "X"));
+		
+		while(true) {
+			try{
+				return Double.parseDouble(JOptionPane.showInputDialog(frame,
+						"What is the x value of s?", "X"));
+			}catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+			}
+			}
 	}
 	
 	public Double yOption(String s) {
-		return Double.parseDouble(JOptionPane.showInputDialog(frame,
-				"What is the y value of s?", "Y"));
+		
+		while(true) {
+			try{
+				return Double.parseDouble(JOptionPane.showInputDialog(frame,
+						"What is the y value of s?", "Y"));
+			}catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+			}
+			}
 	}
 	
 	public Double valueDoubleOption(String s) {
-		return Double.valueOf(JOptionPane.showInputDialog(frame,
-				"What is the (Double) value of the "+s+" feature?", "Value"));
+		while(true) {
+		try{
+			return Double.valueOf(JOptionPane.showInputDialog(frame,
+					"What is the (Double) value of the "+s+" feature?", "Value"));
+		}catch (NumberFormatException e){
+			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+		}
+		}
+	}
+	
+	public Double kOption() {
+		while(true) {
+		try{
+			return Double.valueOf(JOptionPane.showInputDialog(frame,
+					"What is the value of k do you want to solve with?", "k Value"));
+		}catch (NumberFormatException e){
+			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+		}
+		}
 	}
 	
 	public String valueStringOption(String s) {

@@ -43,9 +43,7 @@ public class kNNStrategy {
 		}
 		
 		return tally/numberOfNeighbors;
-			
-			
-		
+
 	}
 	
 }
