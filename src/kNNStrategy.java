@@ -39,7 +39,7 @@ public class kNNStrategy {
 		}
 			
 		for (double k : kKeys) {
-			tally += resultList.get(k).getFeature(unsolvedFeature.GetName()).GetValue();
+			//tally += resultList.get(k).getFeature(unsolvedFeature.GetName()).GetValue();
 		}
 		
 		return tally/numberOfNeighbors;
