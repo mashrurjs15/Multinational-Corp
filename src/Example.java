@@ -19,9 +19,9 @@ public class Example {
 	
 	public void addFeature(String type, String s, Double d1, Double d2) {
 		if(type == "Cartesian") {
-			features.addElement(new Cartesian(s,d1,d2));
+			//features.addElement(new Cartesian(s,));
 		}else if(type == "Boolean") {
-			features.addElement(new Boolean(s));
+			features.addElement(new Boolean(s,s));
 		}else {
 			features.addElement(new Number(s,d1));
 		}

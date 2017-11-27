@@ -1,5 +1,5 @@
 
-public class Number implements Feature {
+public class Number implements Feature{
 	private String name;
 	private Double value;
 	private static final String TYPE = "Number";
@@ -12,11 +12,27 @@ public class Number implements Feature {
 		name = s;
 		value = d;
 	}
+
 	@Override
 	public String GetName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
+	
+	@Override
+	public void SetName(String s) {
+		name = s;
+	}
+
+	@Override
+	public Double GetValue() {
+		return value;
+	}
+
+	@Override
+	public void SetValue(Object v) {
+		value = (Double)v;
+	}
+
 
 	@Override
 	public void Strategy() {
@@ -36,11 +52,6 @@ public class Number implements Feature {
 		return false;
 	}
 
-	@Override
-	public double GetValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	public String toString() {
 		if(value != null) {
@@ -54,4 +65,7 @@ public class Number implements Feature {
 	public String getType() {
 		return TYPE;
 	}
+
+	
+	
 }

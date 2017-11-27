@@ -1,24 +1,39 @@
+import java.util.ArrayList;
 
 public class Cartesian implements Feature {
 	
 	private String name;
-	private Double x, y;
+	private ArrayList<Double> values;
 	private static final String TYPE = "Cartesian";
 	public Cartesian(String s) {
 		name = s;
 
 	}
-	public Cartesian(String s,Double d1, Double d2) {
+	public Cartesian(String s,ArrayList<Double> values) {
 		name = s;
-		x = d1;
-		y = d2;
+		this.values = values;
 	}
+	
 	@Override
 	public String GetName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
-
+	
+	@Override
+	public void SetName(String s) {
+		name = s;
+	}
+	
+	public ArrayList<Double> GetValue() {
+		// TODO Auto-generated method stub
+		return values;
+	}
+	
+	@Override
+	public void SetValue(Object v) {
+		values = (ArrayList<Double>)v; 
+	}
+	
 	@Override
 	public void Strategy() {
 		// TODO Auto-generated method stub
@@ -37,21 +52,21 @@ public class Cartesian implements Feature {
 		return false;
 	}
 
-	@Override
-	public double GetValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	
 	public String toString() {
-		if(x != null) {
-			return "("+x+"," + y+ ") ("+name+")";
-		}else {
-			return name +" (Cartesian)";
-		}
+		String s = "< ";
+		for(Double d : values ) {
+			s = s + ", " + d.toString();
+		}s = s + ">";
+		return s;
+		
 		
 	}
 	public String getType() {
 		return TYPE;
 	}
+	
+	
+	
 }
