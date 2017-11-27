@@ -16,6 +16,14 @@ public class Entity {
 	public String toString() {
 		return s;
 	}
+
+	public DefaultListModel<Feature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(DefaultListModel<Feature> features) {
+		this.features = features;
+	}
 	
 	
 
