@@ -3,7 +3,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-
+/*
+ * kNNStrategy finds the closest neighbors for the unsolvedFeature listed in the unsolvedEntity
+ * kNNStrategy 
+ */
 
 public class kNNStrategy {
 	
