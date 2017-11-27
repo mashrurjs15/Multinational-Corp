@@ -34,16 +34,11 @@ public class Solver {
 		for(int i = 0; i<featuresModel.getFeatureList().size();i++) {
 			s = featuresModel.getFeatureList().getElementAt(i);
 			switch(s.getType()) {
-			case "Cartesian": Double x = view.xOption(s.GetName());
-							Double y = view.yOption(s.GetName());
-							newE.addFeature("Cartesian",s.GetName(),x, y);
-							
+			case "Cartesian": newE.addFeature("Cartesian",s.GetName(),view.xOption(s.GetName()), view.yOption(s.GetName()));
 							break;
-			case "Number": Double a = view.valueDoubleOption(s.GetName());
-							newE.addFeature("Number",s.GetName(),a, null);
+			case "Number": newE.addFeature("Number",s.GetName(),view.valueDoubleOption(s.GetName()), null);
 							break;
-			case "Boolean": String value = view.valueStringOption(s.GetName());
-							newE.addFeature( "Boolean",value,null, null);
+			case "Boolean": newE.addFeature( "Boolean",view.valueStringOption(s.GetName()),null, null);
 							break;
 			}
 		}
