@@ -1,27 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 
 public class GUI{
 	private JFrame frame;
-	private Solver controller;
+	//private Solver controller;
 	private JList<Example> training, unsolved;
 	private JList<Feature> features;
 	private JMenu menu;
 	private JMenuBar menuBar;
 	private JMenuItem  reset, addFeature, removeFeature;
 	private JButton addTraining, editTraining, removeTraining, addUnsolved, editUnsolved, removeUnsolved;
+	@SuppressWarnings("unused")
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
 	private JLabel trainingLabel, unsolvedLabel, featuresLabel;
 	private static final String[] TYPES = {"Number","Cartesian","Boolean"};
 	
 	public GUI(Solver cl) {
-		controller = cl;
+		//controller = cl;
 	}
 	
 	public void setUp() {
