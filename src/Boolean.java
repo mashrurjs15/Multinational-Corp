@@ -50,7 +50,12 @@ public class Boolean implements Feature {
 	}
 
 	public String toString() {
-		return name + " (Boolean)";
+		if(value == null) {
+			return name + " (Boolean)";
+		}else {
+			return value + " ("+name+")";
+		}
+
 	}
 	
 	public String getType() {

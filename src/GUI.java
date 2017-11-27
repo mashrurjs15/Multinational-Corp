@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class GUI{
@@ -15,6 +16,7 @@ public class GUI{
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
 	private JLabel trainingLabel, unsolvedLabel, featuresLabel;
 	private static final String[] TYPES = {"Number","Cartesian","Boolean"};
+	private int UNKNOWN_FLAG = 0;
 	
 	public GUI(Solver cl) {
 		//controller = cl;
@@ -134,33 +136,19 @@ public class GUI{
 		
 	}
 	
-	public String nameOption(String s) {
+	public String valueStringOption(String s) {
 		return (String)JOptionPane.showInputDialog(frame,
-				"What is the name of the "+ s + " feature?", "Name");
+				"What is the value/name of the "+ s + " feature?", "Name");
 	}
 	
-	public Double xOption(String s) {
-		
-		while(true) {
-			try{
-				return Double.parseDouble(JOptionPane.showInputDialog(frame,
-						"What is the x value of s?", "X"));
-			}catch (NumberFormatException e){
-				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-			}
-			}
-	}
-	
-	public Double yOption(String s) {
-		
-		while(true) {
-			try{
-				return Double.parseDouble(JOptionPane.showInputDialog(frame,
-						"What is the y value of s?", "Y"));
-			}catch (NumberFormatException e){
-				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-			}
-			}
+	public String valueStringUnknownOption(String s) {
+		String str = (String)JOptionPane.showInputDialog(frame,
+				"What is the name of the "+ s + " feature? \nEnter '?' if it is unknown.", "Name");
+		if (str.equals("?")) {
+			UNKNOWN_FLAG = 1;
+			return null;
+		}
+		return str;
 	}
 	
 	public Double valueDoubleOption(String s) {
@@ -174,6 +162,78 @@ public class GUI{
 		}
 	}
 	
+	public Double valueDoubleUnknownOption(String s) {
+		String str;
+		while(true) {
+		try{
+			str = JOptionPane.showInputDialog(frame,
+					"What is the (Double) value of the "+s+" feature? Enter '?' if it is unknown.", "Value");
+			if(str.equals("?")) {
+				UNKNOWN_FLAG = 1;
+				return null;
+			}else {
+				
+				return Double.parseDouble(str);
+			}
+		}catch (NumberFormatException e){
+			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+		}
+		}
+	}
+	
+	public ArrayList<Double> valueListOption(String s) {
+		ArrayList<Double> d = new ArrayList<Double>();
+		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
+				"What is the next (Double) value of the "+s+" feature?", "Value")));
+		while(true) {
+			int reply = JOptionPane.showConfirmDialog(frame, "Would you like to add another value?", "Another value", JOptionPane.YES_NO_OPTION);
+	        if (reply == JOptionPane.YES_OPTION) {
+	        	try{
+	    			d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
+	    					"What is the next (Double) value of the "+s+" feature?", "Value")));
+	    		}catch (NumberFormatException e){
+	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+	    		}
+	        }else {
+	        	break;
+	        }
+		}
+		return d;
+	}
+	
+	public ArrayList<Double> valueListUnknownOption(String s) {
+		ArrayList<Double> d = new ArrayList<Double>();
+		String str;
+		str = JOptionPane.showInputDialog(frame,
+				"What is the next (Double) value of the "+s+" feature? Enter '?' if it us unknown.", "Value");
+		System.out.println(str);
+		if(str.equals("?")) {
+			UNKNOWN_FLAG = 1;
+			return null;
+		}else {
+			try{
+				d.add(Double.valueOf(str));
+    		}catch (NumberFormatException e){
+    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+    		}
+		}
+		while(true) {
+			int reply = JOptionPane.showConfirmDialog(frame, "Would you like to add another value?", "Another value", JOptionPane.YES_NO_OPTION);
+	        if (reply == JOptionPane.YES_OPTION) {
+	        	try{
+	        		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
+	    					"What is the next (Double) value of the "+s+" feature?", "Value")));
+	    			
+	    		}catch (NumberFormatException e){
+	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+	    		}
+	        }else {
+	        	break;
+	        }
+		}
+		return d;
+	}
+	
 	public Double kOption() {
 		while(true) {
 		try{
@@ -185,10 +245,6 @@ public class GUI{
 		}
 	}
 	
-	public String valueStringOption(String s) {
-		return (String)JOptionPane.showInputDialog(frame,
-				"What is the (String) value of the "+ s+" feature?", "Value");
-	}
 	
 	public String typeOption() {
 		return (String) JOptionPane.showInputDialog(frame,
@@ -197,6 +253,33 @@ public class GUI{
 				TYPES, TYPES[0]);
 	}
 	
+	public String metricOption() {
+		return (String) JOptionPane.showInputDialog(frame,
+				"Choose one", "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				TYPES, TYPES[0]);
+	}
+	
+	
+	
+	
+	
+	public int getUNKNOWN_FLAG() {
+		return UNKNOWN_FLAG;
+	}
+
+	public void setUNKNOWN_FLAG(int uNKNOWN_FLAG) {
+		UNKNOWN_FLAG = uNKNOWN_FLAG;
+	}
+
+	public JMenuItem getSolve() {
+		return solve;
+	}
+
+	public void setSolve(JMenuItem solve) {
+		this.solve = solve;
+	}
+
 	public JList<Feature> getFeatures() {
 		return features;
 	}

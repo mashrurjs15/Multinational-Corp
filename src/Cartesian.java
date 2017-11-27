@@ -9,9 +9,9 @@ public class Cartesian implements Feature {
 		name = s;
 
 	}
-	public Cartesian(String s,ArrayList<Double> values) {
+	public Cartesian(String s,ArrayList<Double> value) {
 		name = s;
-		this.values = values;
+		this.values = value;
 	}
 	
 	@Override
@@ -55,11 +55,16 @@ public class Cartesian implements Feature {
 	
 	
 	public String toString() {
-		String s = "< ";
-		for(Double d : values ) {
-			s = s + ", " + d.toString();
-		}s = s + ">";
-		return s;
+		if(values == null) {
+			return name + " ("+TYPE+")";
+		}else {
+			String s = "< ";
+			for(Double d : values ) {
+				s = s + ", " + d.toString();
+			}s = s + "> ("+name+")";
+			return s;
+		}
+		
 		
 		
 	}
