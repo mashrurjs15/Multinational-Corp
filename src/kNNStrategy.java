@@ -26,7 +26,7 @@ public class kNNStrategy {
 
 		double temp = 0;
 		this.unsolvedFeature = unsolvedEntity.getUnsolvedFeature(); // Finds the empty Feature and store it into unsolvedFeature
-		
+		 
 		List<Double> sortedKeys = new ArrayList<Double>(resultList.size());
 		sortedKeys.addAll(resultList.keySet());
 		Collections.sort(sortedKeys);

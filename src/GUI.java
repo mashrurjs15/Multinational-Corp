@@ -138,18 +138,38 @@ public class GUI{
 	}
 	
 	public Double xOption(String s) {
-		return Double.parseDouble(JOptionPane.showInputDialog(frame,
-				"What is the x value of s?", "X"));
+		
+		while(true) {
+			try{
+				return Double.parseDouble(JOptionPane.showInputDialog(frame,
+						"What is the x value of s?", "X"));
+			}catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+			}
+			}
 	}
 	
 	public Double yOption(String s) {
-		return Double.parseDouble(JOptionPane.showInputDialog(frame,
-				"What is the y value of s?", "Y"));
+		
+		while(true) {
+			try{
+				return Double.parseDouble(JOptionPane.showInputDialog(frame,
+						"What is the y value of s?", "Y"));
+			}catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+			}
+			}
 	}
 	
 	public Double valueDoubleOption(String s) {
-		return Double.valueOf(JOptionPane.showInputDialog(frame,
-				"What is the (Double) value of the "+s+" feature?", "Value"));
+		while(true) {
+		try{
+			return Double.valueOf(JOptionPane.showInputDialog(frame,
+					"What is the (Double) value of the "+s+" feature?", "Value"));
+		}catch (NumberFormatException e){
+			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+		}
+		}
 	}
 	
 	public String valueStringOption(String s) {
