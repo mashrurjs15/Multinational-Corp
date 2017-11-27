@@ -1,10 +1,21 @@
 
 public class Number implements Feature {
-
+	private String name;
+	private Double value;
+	private static final String TYPE = "Number";
+	
+	public Number(String s) {
+		name = s;
+	}
+	
+	public Number(String s, Double d) {
+		name = s;
+		value = d;
+	}
 	@Override
 	public String GetName() {
 		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
@@ -30,5 +41,17 @@ public class Number implements Feature {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	public String toString() {
+		if(value != null) {
+			return value + " ("+name+")";
+		}else {
+			return name +" (Number)";
+		}
+		
+	}
+	
+	public String getType() {
+		return TYPE;
+	}
 }

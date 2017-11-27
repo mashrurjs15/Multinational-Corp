@@ -10,4 +10,6 @@ public interface Feature {
 	public boolean CompareTo();
 	
 	public boolean isEmpty();
+	public String getType();
+	public String toString();
 }

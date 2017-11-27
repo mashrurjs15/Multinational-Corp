@@ -1,10 +1,16 @@
 
 public class Boolean implements Feature {
 
+	private String name;
+	private static final String TYPE = "Boolean";
+	
+	public Boolean(String s) {
+		name = s;
+	}
 	@Override
 	public String GetName() {
 		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
@@ -30,5 +36,12 @@ public class Boolean implements Feature {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	public String toString() {
+		return name + " (Boolean)";
+	}
+	
+	public String getType() {
+		return TYPE;
+	}
+	
 }

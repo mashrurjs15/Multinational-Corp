@@ -8,50 +8,55 @@ import javax.swing.JOptionPane;
 public class Solver {
 	
 	private GUI  view;
-	private EntityCollection model;
-	private DefaultListModel<Entity> training,unsolved, features;
+	private ExampleCollection model;
+	private ExampleCollection training,unsolved;
+	private Example features;
 	
 	public Solver() {
-		features = new DefaultListModel<Entity>();
-		training = new DefaultListModel<Entity>();
-		unsolved = new DefaultListModel<Entity>();
+		features = new Example();
+		training = new ExampleCollection();
+		unsolved = new ExampleCollection();
 
 		view = new GUI(this);
+		view.setFeatures(features.getFeatures());
+		view.setTraining(training.getExample());
+		view.setUnsolved(unsolved.getExample());
+		view.setUp();
 		
 		// Create action listeners //
 		
 		//addFeature Button Listener
 		view.getAddFeature().addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	features.addElement(createFeature());
+		    	features.addFeature (view.typeOption(),view.nameOption("new"),null,null);
 				}  
 		});
 		
 		//removeFeature Button Listener
 		view.getRemoveFeature().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				  features.removeElementAt(view.getFeatures().getSelectedIndex());
+				  features.getFeatureList().removeElementAt(view.getFeatures().getSelectedIndex());
 			}  
 				});
 		
 		//addTraining Button Listener
 		view.getAddTraining().addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	//training.addElement(createEntity(training));
+		    	createExample(training);
 				}  
 		});
 		
 		//AddUnsolved
 		view.getAddUnsolved().addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-					createEntity(unsolved);
+		    	createExample(unsolved);
 				}
 		});
 		
 		//RemoveUnsolved
 		view.getRemoveUnsolved().addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {	
-					unsolved.removeElementAt(view.getUnsolved().getSelectedIndex());
+					unsolved.getExample().removeElementAt(view.getUnsolved().getSelectedIndex());
 				}
 		});
 		
@@ -72,52 +77,51 @@ public class Solver {
 		//RemoveTraining
 		view.getRemoveTraining().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				training.removeElementAt(view.getTraining().getSelectedIndex());
+				training.getExample().removeElementAt(view.getTraining().getSelectedIndex());
 			}
 		});
 				
 	}
 	
-	private Entity createFeature() {
+	private Example createFeature() {
 		String name = view.nameOption("new");
 		String type = view.typeOption();
-		return new Entity(name);
+		return new Example();
 		
 	}
 	
-	private void createEntity(DefaultListModel<Entity> list) {	
-		String s;
-		//Entity e = new Entity();
-		for(int i = 0; i<features.size();i++) {
-			s = features.getElementAt(i).toString();
-			switch(s) {
-			case "Cartesian": Double x = view.xOption(s);
-							Double y = view.yOption(s);
+	private void createExample(ExampleCollection e) {	
+		Feature s;
+		Example newE = new Example();
+		
+		
+		for(int i = 0; i<features.getFeatureList().size();i++) {
+			s = features.getFeatureList().getElementAt(i);
+			switch(s.getType()) {
+			case "Cartesian": Double x = view.xOption(s.GetName());
+							Double y = view.yOption(s.GetName());
+							newE.addFeature("Cartesian",s.GetName(),x, y);
 							
 							break;
-			case "Number": Double a = view.valueDoubleOption(s);
+			case "Number": Double a = view.valueDoubleOption(s.GetName());
+							newE.addFeature("Number",s.GetName(),a, null);
 							break;
-			case "Boolean": String value = view.valueStringOption(s);
+			case "Boolean": String value = view.valueStringOption(s.GetName());
+							newE.addFeature( "Boolean",value,null, null);
 							break;
-			}
-			if(training == list) {
-				
 			}
 		}
-		//return e;
+		e.addExample(newE);
 	}
 		
 
 
 	
 	
-	public DefaultListModel<Entity> getFeatures() {
-		return features;
+	public DefaultListModel<Feature> getFeatures() {
+		return features.getFeatureList();
 	}
 
-	public void setFeatures(DefaultListModel<Entity> features) {
-		this.features = features;
-	}
 
 	public GUI getGui() {
 		return view;
@@ -129,22 +133,22 @@ public class Solver {
 	}
 
 
-	public DefaultListModel<Entity> getTraining() {
+	public ExampleCollection getTraining() {
 		return training;
 	}
 
 
-	public void setTraining(DefaultListModel<Entity> training) {
+	public void setTraining(ExampleCollection training) {
 		this.training = training;
 	}
 
 
-	public DefaultListModel<Entity> getUnsolved() {
+	public ExampleCollection getUnsolved() {
 		return unsolved;
 	}
 
 
-	public void setUnsolved(DefaultListModel<Entity> unsolved) {
+	public void setUnsolved(ExampleCollection unsolved) {
 		this.unsolved = unsolved;
 	}
 

@@ -11,12 +11,12 @@ import java.util.List;
 public class kNNStrategy {
 	
 	private int numberOfNeighbors;
-	private HashMap<Double, Entity> resultList;
-	private Entity unsolvedEntity;
+	private HashMap<Double, Example> resultList;
+	private Example unsolvedEntity;
 	private Feature unsolvedFeature;
 	private double tally = 0;
 	
-	public kNNStrategy(int n, HashMap<Double,Entity> resultList, Entity unsolvedEntity) {
+	public kNNStrategy(int n, HashMap<Double,Example> resultList, Example unsolvedEntity) {
 		this.numberOfNeighbors = n;
 		this.resultList = resultList;
 		this.unsolvedEntity = unsolvedEntity;

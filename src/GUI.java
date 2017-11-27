@@ -7,10 +7,11 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-public class GUI implements Observer{
+public class GUI{
 	private JFrame frame;
 	private Solver controller;
-	private JList<Entity> training, unsolved, features;
+	private JList<Example> training, unsolved;
+	private JList<Feature> features;
 	private JMenu menu;
 	private JMenuBar menuBar;
 	private JMenuItem  reset, addFeature, removeFeature;
@@ -21,10 +22,9 @@ public class GUI implements Observer{
 	
 	public GUI(Solver cl) {
 		controller = cl;
-		training = new JList<Entity>(controller.getTraining());
-		unsolved = new JList<Entity>(controller.getUnsolved());
-		features = new JList<Entity>(controller.getFeatures());
-		
+	}
+	
+	public void setUp() {
 		frame = new JFrame("Machine Learning");	
 		frame.setLayout(new GridBagLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,7 +133,7 @@ public class GUI implements Observer{
 	
 	public String nameOption(String s) {
 		return (String)JOptionPane.showInputDialog(frame,
-				"What is the name of the "+s + "feature?", "Name");
+				"What is the name of the "+ s + " feature?", "Name");
 	}
 	
 	public Double xOption(String s) {
@@ -148,12 +148,12 @@ public class GUI implements Observer{
 	
 	public Double valueDoubleOption(String s) {
 		return Double.valueOf(JOptionPane.showInputDialog(frame,
-				"What is the (Double) value of the feature, s?", "Value"));
+				"What is the (Double) value of the "+s+" feature?", "Value"));
 	}
 	
 	public String valueStringOption(String s) {
 		return (String)JOptionPane.showInputDialog(frame,
-				"What is the (String) value of the feature, s?", "Value");
+				"What is the (String) value of the "+ s+" feature?", "Value");
 	}
 	
 	public String typeOption() {
@@ -163,15 +163,13 @@ public class GUI implements Observer{
 				TYPES, TYPES[0]);
 	}
 	
-	
-	
-	public JList<Entity> getFeatures() {
+	public JList<Feature> getFeatures() {
 		return features;
 	}
 
 
-	public void setFeatures(JList<Entity> features) {
-		this.features = features;
+	public void setFeatures(DefaultListModel<Feature> feature) {
+		features = new JList<Feature>(feature);
 	}
 
 
@@ -259,38 +257,28 @@ public class GUI implements Observer{
 	}
 
 
-	public JList<Entity> getTraining() {
+	public JList<Example> getTraining() {
 		return training;
 	}
 
 
-	public void setTraining(JList<Entity> training) {
-		this.training = training;
+	public void setTraining(DefaultListModel<Example> defaultListModel) {
+		training = new JList<Example>(defaultListModel);
+		
 	}
 
 
-	public JList<Entity> getUnsolved() {
+	public JList<Example> getUnsolved() {
 		return unsolved;
 	}
 
 
-	public void setUnsolved(JList<Entity> unsolved) {
-		this.unsolved = unsolved;
+	public void setUnsolved(DefaultListModel<Example> unsolve) {
+		unsolved = new JList<Example>(unsolve);
 	}
 
 
 	public void setRemoveUnsolved(JButton removeUnsolved) {
 		this.removeUnsolved = removeUnsolved;
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-
-
 }
