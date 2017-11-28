@@ -29,6 +29,7 @@ Checkpoint 2
 - Cartesian is also a complex feature which contains a list of finite Number feature.
 - Entity Class is refactored/renamed to Example and Example is part of ExampleCollection
 - Made some changes to classes (rebustment, loose couple)
+- KNN needs abit more work
 <<<<<<< HEAD
 -
 
