@@ -7,6 +7,7 @@ public class Solver {
 	private GUI  view;
 	private ExampleCollection trainingModel,unsolvedModel;
 	private Example featuresModel;
+	private kNNStrategy kNNAnswer;
 	
 	public Solver() {
 		featuresModel = new Example();
@@ -34,14 +35,27 @@ public class Solver {
 		for(int i = 0; i<featuresModel.getFeatureList().size();i++) {
 			s = featuresModel.getFeatureList().getElementAt(i);
 			switch(s.getType()) {
-			case "Cartesian": newE.addFeature("Cartesian",s.GetName(),view.xOption(s.GetName()), view.yOption(s.GetName()));
+			case "Cartesian": if(view.getUNKNOWN_FLAG() == 1) {
+									newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null,view.valueListOption(s.GetName()),null);
+								}else {
+									newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null, view.valueListUnknownOption(s.GetName()),null);
+								}
 							break;
-			case "Number": newE.addFeature("Number",s.GetName(),view.valueDoubleOption(s.GetName()), null);
+			case "Number": if(view.getUNKNOWN_FLAG() == 1) {
+								newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleOption(s.GetName()), null,null);
+							}else {
+								newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleUnknownOption(s.GetName()), null,null);
+							}
 							break;
-			case "Boolean": newE.addFeature( "Boolean",view.valueStringOption(s.GetName()),null, null);
+			case "Boolean":if(view.getUNKNOWN_FLAG() == 1) {
+								newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringOption(s.GetName()));
+							}else {
+								newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringUnknownOption(s.GetName()));
+							}
 							break;
 			}
 		}
+		view.setUNKNOWN_FLAG(0);
 		e.addExample(newE);
 	}
 	
@@ -50,7 +64,23 @@ public class Solver {
 		//addFeature Button Listener
 				view.getAddFeature().addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
-				    	featuresModel.addFeature (view.typeOption(),view.nameOption("new"),null,null);
+				    	String t = view.typeOption();
+				    	String v = view.valueStringOption("new");
+				    	String s = view.metricOption();
+				    	Metric m;
+				    	if(s.equals("Euclidian")) {
+				    		m = new Euclidian();
+				    	}else if(s.equals("AbsoluteDifference")) {
+				    		m = new AbsoluteDifference();
+				    	}else if(s.equals("Difference")) {
+				    		m = new Difference();
+				    	}else {
+				    		m = new BooleanCompare();
+				    	}
+			
+				    		
+				    	featuresModel.addFeature (t,v, m,null,null,null);
+				    	
 						}  
 				});
 				
@@ -77,7 +107,19 @@ public class Solver {
 				
 				//EditUnsolved
 				view.getEditUnsolved().addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {	
+					public void actionPerformed(ActionEvent e) {
+							DefaultListModel<Feature> f = view.getUnsolved().getSelectedValue().getFeatureList();
+							for (int i = 0; i < f.size();i++) {
+								if(f.getElementAt(i) instanceof Cartesian) {
+									f.getElementAt(i).SetValue(view.valueListOption(f.getElementAt(i).GetName()));
+								}else if(f.getElementAt(i) instanceof Number) {
+									f.getElementAt(i).SetValue(view.valueDoubleOption(f.getElementAt(i).GetName()));
+								}else {
+									f.getElementAt(i).SetValue(view.valueStringOption(f.getElementAt(i).GetName()));
+								}
+								
+							}
+							
 							//unsolved.addElement(createEntity());
 						}
 				});
@@ -85,6 +127,7 @@ public class Solver {
 				//addTraining Button Listener
 				view.getAddTraining().addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
+				    	view.setUNKNOWN_FLAG(1);
 				    	createExample(trainingModel);
 						}  
 				});
@@ -92,7 +135,17 @@ public class Solver {
 				//EditTraining
 				view.getEditTraining().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {	
-							//unsolved.addElement(createEntity());
+						DefaultListModel<Feature> f = view.getTraining().getSelectedValue().getFeatureList();
+						for (int i = 0; i < f.size();i++) {
+							if(f.getElementAt(i) instanceof Cartesian) {
+								f.getElementAt(i).SetValue(view.valueListOption(f.getElementAt(i).GetName()));
+							}else if(f.getElementAt(i) instanceof Number) {
+								f.getElementAt(i).SetValue(view.valueDoubleOption(f.getElementAt(i).GetName()));
+							}else {
+								f.getElementAt(i).SetValue(view.valueStringOption(f.getElementAt(i).GetName()));
+							}
+							
+						}
 					}
 				});
 				
@@ -100,6 +153,17 @@ public class Solver {
 				view.getRemoveTraining().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {	
 						trainingModel.getExample().removeElementAt(view.getTraining().getSelectedIndex());
+					}
+				});
+				
+				//Solve
+				view.getSolve().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {	
+						Integer k = view.kOption();
+						
+						
+						kNNAnswer = new kNNStrategy(k,unsolvedModel, trainingModel);
+						kNNAnswer.solveKNN();
 					}
 				});
 	}

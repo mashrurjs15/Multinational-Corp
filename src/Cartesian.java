@@ -1,24 +1,48 @@
+import java.util.ArrayList;
 
 public class Cartesian implements Feature {
 	
 	private String name;
-	private Double x, y;
+	private ArrayList<Double> values;
 	private static final String TYPE = "Cartesian";
+	private Metric metric;
 	public Cartesian(String s) {
 		name = s;
 
 	}
-	public Cartesian(String s,Double d1, Double d2) {
+	public Cartesian(String s,Metric m, ArrayList<Double> value) {
 		name = s;
-		x = d1;
-		y = d2;
+		this.values = value;
+		this.metric = m;
 	}
+	
+	public void SetMetric(Metric m) {
+		metric = m;
+	}
+	public Metric GetMetric() {
+		return metric;
+	}
+	
 	@Override
 	public String GetName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
-
+	
+	@Override
+	public void SetName(String s) {
+		name = s;
+	}
+	
+	public ArrayList<Double> GetValue() {
+		// TODO Auto-generated method stub
+		return values;
+	}
+	
+	@Override
+	public void SetValue(Object v) {
+		values = (ArrayList<Double>)v; 
+	}
+	
 	@Override
 	public void Strategy() {
 		// TODO Auto-generated method stub
@@ -37,21 +61,26 @@ public class Cartesian implements Feature {
 		return false;
 	}
 
-	@Override
-	public double GetValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	
 	public String toString() {
-		if(x != null) {
-			return "("+x+"," + y+ ") ("+name+")";
+		if(values == null) {
+			return name + " ("+TYPE+")"+ "("+metric.getName()+")";
 		}else {
-			return name +" (Cartesian)";
+			String s = "< ";
+			for(Double d : values ) {
+				s = s + ", " + d.toString();
+			}s = s + "> ("+name+")";
+			return s;
 		}
+		
+		
 		
 	}
 	public String getType() {
 		return TYPE;
 	}
+	
+	
+	
 }
