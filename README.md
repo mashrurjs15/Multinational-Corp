@@ -3,13 +3,13 @@
 Milestone 3
 ----------------------------------------------------------------------------------------------------------
 HOW TO RUN THE PROGRAM:
--Run the code as a java application
--Go to "Menu" and add features that you desire.
--Remove any features from the same menu.
--Add training examples via the add button at the bottom left of the GUI
--Add unsolved examples vai the add button on the bottom right, for any unknown feature values simply enter "?".
--Edit or remove any by clicking on that particular example and clicking the respective button.
--Once all examples are entered, press solve and enter the desired k value.
+- Run the code as a java application
+- Go to "Menu" and add features that you desire.
+- Remove any features from the same menu.
+- Add training examples via the add button at the bottom left of the GUI
+- Add unsolved examples vai the add button on the bottom right, for any unknown feature values simply enter "?".
+- Edit or remove any by clicking on that particular example and clicking the respective button.
+- Once all examples are entered, press solve and enter the desired k value.
 
 Checkpoint 1
 
