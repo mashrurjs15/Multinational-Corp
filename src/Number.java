@@ -5,16 +5,9 @@ public class Number implements Feature{
 	private Metric metric;
 	private static final String TYPE = "Number";
 	
-<<<<<<< HEAD
-	public Number(String s) {
-		name = s;
-	}
-	
-	public Number(String s, Metric m, Double d) {
-=======
 
-	public Number(String s, Double d) {
->>>>>>> branch 'Milestone3' of https://github.com/SYSC3110/project-multinational-corps
+	public Number(String s, Metric m, Double d) {
+
 		name = s;
 		value = d;
 		metric = m;
