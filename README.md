@@ -32,30 +32,30 @@ Checkpoint 2
 
 
 Model: ExampleCollection
-  HOlds a list of examples
-  Examples hold a list of features.
-  Two Example Collections are created, one from Training, one for Unsolved examples.
-  A list holding the names of all features is used so we know what features are created with each example.
+  - HOlds a list of examples
+  - Examples hold a list of features.
+  - Two Example Collections are created, one from Training, one for Unsolved examples.
+  - A list holding the names of all features is used so we know what features are created with each example.
   
   
 Controller: Solver
-  Holds all action listeners and deals with all button presses from the GUI
-  Creation of features and all examples are dealt with in this function.
+  - Holds all action listeners and deals with all button presses from the GUI
+  - Creation of features and all examples are dealt with in this function.
   
 View: GUI
-  THe view of the program. 
-  The functionality of the GUI includes:
-    -Add and remove indivdual features
-    -Create examples for both training and unsolved example lists
-    -Edit both lists
-    -remove examples from either list
-    -Examples in the unsolved list can be entered with an unknown variable. Only 1 per example however.
-    -Features are created with metrics attached, these metrics can be chosen from drop down menu.
-    -Solve button currently ask for what value of k to be used.
+  - THe view of the program. 
+  - The functionality of the GUI includes:
+    - Add and remove indivdual features
+    - Create examples for both training and unsolved example lists
+    - Edit both lists
+    - remove examples from either list
+    - Examples in the unsolved list can be entered with an unknown variable. Only 1 per example however.
+    - Features are created with metrics attached, these metrics can be chosen from drop down menu.
+    - Solve button currently ask for what value of k to be used.
     
     THINGS TO DO FOR GUI
-     -WHen a cartesian feature is added do not allow other features of the same type to have more elements,
-     -Add a pop up menu that displays resaults after solve button is pressed.
+     - WHen a cartesian feature is added do not allow other features of the same type to have more elements,
+     - Add a pop up menu that displays resaults after solve button is pressed.
 
 
 Authors + Contribution:
