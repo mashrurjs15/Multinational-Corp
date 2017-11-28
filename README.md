@@ -32,7 +32,7 @@ Checkpoint 2
 
 
 Model: ExampleCollection
-  - HOlds a list of examples
+  - Holds a list of examples
   - Examples hold a list of features.
   - Two Example Collections are created, one from Training, one for Unsolved examples.
   - A list holding the names of all features is used so we know what features are created with each example.
@@ -43,7 +43,7 @@ Controller: Solver
   - Creation of features and all examples are dealt with in this function.
   
 View: GUI
-  - THe view of the program. 
+  - The view of the program. 
   - The functionality of the GUI includes:
     - Add and remove indivdual features
     - Create examples for both training and unsolved example lists
@@ -57,6 +57,18 @@ View: GUI
      - WHen a cartesian feature is added do not allow other features of the same type to have more elements,
      - Add a pop up menu that displays resaults after solve button is pressed.
 
+Interface: Feature
+  - 3 possible features currently integrated
+    - Boolean (True/False)
+    - Cartesian (list of coordinates)
+    - Number
+    
+Interface: Metric
+  - getDistance method implemented for all possible metrics. (currently 4 possible metrics)
+    - BooleanCompare ( this compares 2 boolean values, if they are the same we return 0, else we return 1)
+    - Difference ( compares 2 number values, returns the difference of the 2 )
+    - AbsoluteDifference ( compares 2 number values, returns the absolute difference of the 2 )
+    - Euclidian ( compares 2 cartesian values, returns the result of the distance between the 2 points)
 
 Authors + Contribution:
 
