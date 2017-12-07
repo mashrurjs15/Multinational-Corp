@@ -316,6 +316,7 @@ public class GUI{
 	public void error(String s) {
 		JOptionPane.showMessageDialog(frame,s,"Input Error",JOptionPane.ERROR_MESSAGE);
 	}
+	 
 	
 	
 	

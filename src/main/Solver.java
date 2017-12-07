@@ -287,6 +287,7 @@ public class Solver {
 					         view.error(i);
 					         return;
 					      }
+				    	
 						}
 				});
 	}
