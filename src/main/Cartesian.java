@@ -1,12 +1,11 @@
 package main;
 import java.util.ArrayList;
 
-public class Cartesian implements Feature {
+public class Cartesian extends Feature {
 	
 	private String name;
 	private ArrayList<Double> values;
 	private static final String TYPE = "Cartesian";
-	private Metric metric;
 	public Cartesian(String s) {
 		name = s;
 
@@ -24,12 +23,12 @@ public class Cartesian implements Feature {
 		return metric;
 	}
 	
-	@Override
+
 	public String GetName() {
 		return name;
 	}
 	
-	@Override
+
 	public void SetName(String s) {
 		name = s;
 	}
@@ -39,24 +38,24 @@ public class Cartesian implements Feature {
 		return values;
 	}
 	
-	@Override
+
 	public void SetValue(Object v) {
 		values = (ArrayList<Double>)v; 
 	}
 	
-	@Override
+
 	public void Strategy() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public boolean CompareTo() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return false;

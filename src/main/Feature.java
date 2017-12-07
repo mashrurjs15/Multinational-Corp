@@ -1,24 +1,29 @@
 package main;
 
-public interface Feature {	
+public abstract class Feature {	
 	
-	public String GetName();
+	public Metric metric;
 	
-	public void SetName(String s);
+	public abstract String GetName();
 	
-	public Object GetValue();
+	public abstract void SetName(String s);
 	
-	public void SetValue(Object v);
-	public void SetMetric(Metric m);
-	public Metric GetMetric();
+	public abstract Object GetValue();
 	
-	public void Strategy();
+	public abstract void SetValue(Object v);
 	
-	public boolean CompareTo();
+	public abstract void SetMetric(Metric m);
 	
-	public boolean isEmpty();
+	public abstract Metric GetMetric();
 	
-	public String getType();
+	public abstract void Strategy();
 	
-	public String toString();
+	public abstract boolean CompareTo();
+	
+	public abstract boolean isEmpty();
+	
+	public abstract String getType();
+	
+	public abstract String toString();
+	
 }
