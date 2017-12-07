@@ -19,13 +19,13 @@ public class Example {
 		return features;
 	}
 	
-	public void addFeature(String type, String s, Double d1, ArrayList<Double> d2, String v) {
+	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Double> d2, String v) {
 		if(type == "Cartesian") {
-			features.addElement(new Cartesian(s,d2));
+			features.addElement(new Cartesian(s,m,d2));
 		}else if(type == "Boolean") {
-			features.addElement(new Boolean(s,v));
+			features.addElement(new Boolean(s,m,v));
 		}else {
-			features.addElement(new Number(s,d1));
+			features.addElement(new Number(s,m,d1));
 		}
 	}
 
@@ -48,6 +48,14 @@ public class Example {
 			}
 		}return null;
 	}
+	
+	public Feature getFeatureIndex(int i) {
+		if(i<listOfFeature.size()) {
+			return listOfFeature.get(i);
+		}
+		return null;
+	}
+	
 	public DefaultListModel<Feature> getFeatureList(){
 		return features;
 	}

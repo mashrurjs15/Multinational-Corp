@@ -1,3 +1,4 @@
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CartesianTest {
-
+/*
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -44,5 +45,5 @@ public class CartesianTest {
 		Cartesian c6 = new Cartesian("Adam", new ArrayList<Double> (25));
 		assertEquals("Cartesian", c6.getType());
 	}
-
+*/
 }
