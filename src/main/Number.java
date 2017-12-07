@@ -1,3 +1,4 @@
+package main;
 
 public class Number implements Feature{
 	private String name;
