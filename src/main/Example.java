@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Example {
 
-	List<Feature> listOfFeature;
+
 	private DefaultListModel<Feature> features;
 	
 	public Example() {
@@ -33,26 +33,27 @@ public class Example {
 	public void setFeatures(DefaultListModel<Feature> features) {
 		this.features = features;
 	}
+	
 	public Feature getUnsolvedFeature() {
 		
-		for(Feature f: listOfFeature) {
-			if(f.isEmpty()) return f;
+		for(int i = 0; i < features.size(); i++) {
+			if(features.get(i).isEmpty()) return features.get(i);
 		}
 		return null;
 	}
 	
 	public Feature getFeature(String s) {
 		
-		for (Feature f : listOfFeature) {
-			if(s.equals(f.GetName())) {
-				return f;
-			}
-		}return null;
+		for(int i = 0; i < features.size(); i++) {
+			if(s.equals(features.getElementAt(i).GetName())) return features.get(i);
+		}
+		return null;
 	}
 	
 	public Feature getFeatureIndex(int i) {
-		if(i<listOfFeature.size()) {
-			return listOfFeature.get(i);
+		
+		if(i<features.getSize()) {
+			return features.get(i);
 		}
 		return null;
 	}

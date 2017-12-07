@@ -161,9 +161,8 @@ public class Solver {
 				view.getSolve().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {	
 						Integer k = view.kOption();
-						
-						
 						kNNAnswer = new kNNStrategy(k,unsolvedModel, trainingModel);
+						
 						kNNAnswer.solveKNN();
 					}
 				});
