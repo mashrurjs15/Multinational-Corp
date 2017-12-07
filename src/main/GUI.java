@@ -138,14 +138,24 @@ public class GUI{
 		
 	}
 	
-	public String valueStringOption(String s) {
-		return (String)JOptionPane.showInputDialog(frame,
-				"What is the value/name of the "+ s + " feature?", "Name");
+	public String valueStringOption(String s) throws Exception {
+		String str = (String)JOptionPane.showInputDialog(frame,
+				"What is the value/name of the "+ s + " feature?");
+		if(str == null || (str != null && ("".equals(str))))   
+		{
+		    throw new Exception();
+		}
+		return str;
+		
 	}
 	
-	public String valueStringUnknownOption(String s) {
+	public String valueStringUnknownOption(String s) throws Exception {
 		String str = (String)JOptionPane.showInputDialog(frame,
-				"What is the name of the "+ s + " feature? \nEnter '?' if it is unknown.", "Name");
+				"What is the name of the "+ s + " feature? \nEnter '?' if it is unknown.");
+		if(str == null || (str != null && ("".equals(str))))   
+		{
+		    throw new Exception();
+		}
 		if (str.equals("?")) {
 			UNKNOWN_FLAG = 1;
 			return null;
@@ -153,23 +163,33 @@ public class GUI{
 		return str;
 	}
 	
-	public Double valueDoubleOption(String s) {
+	public Double valueDoubleOption(String s) throws Exception {
 		while(true) {
-		try{
-			return Double.valueOf(JOptionPane.showInputDialog(frame,
-					"What is the (Double) value of the "+s+" feature?", "Value"));
+			String str = (String)JOptionPane.showInputDialog(frame,
+					"What is the (Double) value of the "+s+" feature?");
+		
+		if(str == null || (str != null && ("".equals(str))))   
+		{
+		    throw new Exception();
+		}
+		try {
+			return Double.valueOf(str);
 		}catch (NumberFormatException e){
 			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
 		}
 		}
 	}
 	
-	public Double valueDoubleUnknownOption(String s) {
+	public Double valueDoubleUnknownOption(String s) throws Exception {
 		String str;
 		while(true) {
 		try{
 			str = JOptionPane.showInputDialog(frame,
-					"What is the (Double) value of the "+s+" feature? Enter '?' if it is unknown.", "Value");
+					"What is the (Double) value of the "+s+" feature? Enter '?' if it is unknown.", "Value",JOptionPane.OK_OPTION);
+			if(str == null || (str != null && ("".equals(str))))   
+			{
+			    throw new Exception();
+			}
 			if(str.equals("?")) {
 				UNKNOWN_FLAG = 1;
 				return null;
@@ -186,13 +206,13 @@ public class GUI{
 	public ArrayList<Double> valueListOption(String s) {
 		ArrayList<Double> d = new ArrayList<Double>();
 		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-				"What is the next (Double) value of the "+s+" feature?", "Value")));
+				"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
 		while(true) {
 			int reply = JOptionPane.showConfirmDialog(frame, "Would you like to add another value?", "Another value", JOptionPane.YES_NO_OPTION);
 	        if (reply == JOptionPane.YES_OPTION) {
 	        	try{
 	    			d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-	    					"What is the next (Double) value of the "+s+" feature?", "Value")));
+	    					"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
 	    		}catch (NumberFormatException e){
 	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
 	    		}
@@ -207,7 +227,7 @@ public class GUI{
 		ArrayList<Double> d = new ArrayList<Double>();
 		String str;
 		str = JOptionPane.showInputDialog(frame,
-				"What is the next (Double) value of the "+s+" feature? Enter '?' if it us unknown.", "Value");
+				"What is the next (Double) value of the "+s+" feature? Enter '?' if it us unknown.", "Value",JOptionPane.OK_OPTION);
 		System.out.println(str);
 		if(str.equals("?")) {
 			UNKNOWN_FLAG = 1;
@@ -224,7 +244,7 @@ public class GUI{
 	        if (reply == JOptionPane.YES_OPTION) {
 	        	try{
 	        		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-	    					"What is the next (Double) value of the "+s+" feature?", "Value")));
+	    					"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
 	    			
 	    		}catch (NumberFormatException e){
 	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
@@ -238,31 +258,55 @@ public class GUI{
 	
 	// Where kNN is used
 	
-	public Integer kOption() {
+	public Integer kOption() throws Exception {
 		while(true) {
-		try{
-			return Integer.valueOf(JOptionPane.showInputDialog(frame,
-					"What is the value of k do you want to solve with?", "k Value"));
-		}catch (NumberFormatException e){
+		String str = (String)JOptionPane.showInputDialog(frame,
+					"What is the value of k do you want to solve with?", "k Value");
+		if(str == null || (str != null && ("".equals(str))))   
+		{
+		    throw new Exception();
+		}
+		try {
+			return Integer.valueOf(str);
+		}
+		catch (NumberFormatException e){
 			JOptionPane.showMessageDialog(frame,"The number entered must be an integer!","Input Error",JOptionPane.ERROR_MESSAGE);
 		}
 		}
 	}
 	
 	
-	public String typeOption() {
-		return (String) JOptionPane.showInputDialog(frame,
+	public String typeOption() throws Exception {
+		String str = (String) JOptionPane.showInputDialog(frame,
 				"Choose one", "Input",
 				JOptionPane.INFORMATION_MESSAGE, null,
 				TYPES, TYPES[0]);
+		if(str == null || (str != null && ("".equals(str))))   
+		{
+		    throw new Exception();
+		}
+		return str;
 	}
 	
 	// Work on this metric option for the gui
-	public String metricOption() {
-		return (String) JOptionPane.showInputDialog(frame,
+	public String metricOption() throws Exception {
+		String str = (String) JOptionPane.showInputDialog(frame,
 				"Choose a Metric for Feature", "Input",
 				JOptionPane.INFORMATION_MESSAGE, null,
 				TYPES_METRICS, TYPES_METRICS[0]);
+		if(str == null || (str != null && ("".equals(str))))   
+		{
+		    throw new Exception();
+		}
+		return str;
+	}
+	
+	public void error(Exception n) {
+		JOptionPane.showMessageDialog(frame,"There was an exception of type: " + n.toString() + "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void error(String s) {
+		JOptionPane.showMessageDialog(frame,s,"Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
 	
