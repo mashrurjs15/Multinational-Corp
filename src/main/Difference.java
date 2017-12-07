@@ -1,6 +1,8 @@
 package main;
 
-public class Difference implements Metric{
+import java.io.Serializable;
+
+public class Difference implements Metric, Serializable{
 
 	@Override
 	public double getDistance(Feature f, Feature f2) {

@@ -1,10 +1,11 @@
 package main;
  import javax.swing.DefaultListModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Example {
+public class Example implements Serializable {
 
 	List<Feature> listOfFeature;
 	private DefaultListModel<Feature> features;

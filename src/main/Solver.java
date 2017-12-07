@@ -1,6 +1,13 @@
 package main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 
 public class Solver {
@@ -215,6 +222,72 @@ public class Solver {
 						kNNAnswer = new kNNStrategy(k,unsolvedModel, trainingModel);
 						kNNAnswer.solveKNN();
 					}
+				});
+				
+				view.getReset().addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				    		trainingModel.getExample().removeAllElements();
+				    		unsolvedModel.getExample().removeAllElements();
+				    		featuresModel.getFeatureList().removeAllElements();
+						}
+				});
+				
+				view.getSave().addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				    	try {
+							 FileOutputStream fileOut =
+					         new FileOutputStream("lastSession.ser");
+					         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+					         ArrayList<Example> t = new ArrayList<Example>();
+					         ArrayList<Example> u = new ArrayList<Example>();
+					         ArrayList<Feature> f = new ArrayList<Feature>();
+					         
+					         for(int i = 0; i< trainingModel.getExample().size();i++) {
+					        	 t.add(trainingModel.getExample().getElementAt(i));
+					         }
+					         for(int i = 0; i< unsolvedModel.getExample().size();i++) {
+					        	 u.add(unsolvedModel.getExample().getElementAt(i));
+					         }
+					         for(int i = 0; i< featuresModel.getFeatures().size();i++) {
+					        	 f.add(featuresModel.getFeatures().getElementAt(i));
+					         }
+					        	 out.writeObject(t);
+					        	 out.writeObject(u);
+					        	 out.writeObject(f);
+					         out.close();
+					         fileOut.close();
+					      } catch (IOException i) {
+					         i.printStackTrace();
+					      }
+						}
+				});
+				
+				view.getLoad().addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				    	try {
+					         FileInputStream fileIn = new FileInputStream("LastSession.ser");
+					         ObjectInputStream in = new ObjectInputStream(fileIn);
+					         	ArrayList<Example> t = (ArrayList<Example>) in.readObject();
+					         	ArrayList<Example> u = (ArrayList<Example>) in.readObject();
+					         	ArrayList<Feature> f =(ArrayList<Feature>) in.readObject();
+					         	for(Feature b: f) {
+					         		featuresModel.getFeatures().addElement(b);;
+					         	}
+					         	for(Example b: u) {
+					         		unsolvedModel.getExample().addElement(b);;
+					         	}
+					         	for(Example b: t) {
+					         		trainingModel.getExample().addElement(b);;
+					         	}
+
+					         in.close();
+					         fileIn.close();
+					      } catch (IOException | ClassNotFoundException i) {
+					         i.printStackTrace();
+					         view.error(i);
+					         return;
+					      }
+						}
 				});
 	}
 

@@ -1,6 +1,8 @@
 package main;
 
-public abstract class Feature {	
+import java.io.Serializable;
+
+public abstract class Feature implements Serializable {	
 	
 	public Metric metric;
 	

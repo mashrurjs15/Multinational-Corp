@@ -9,9 +9,9 @@ public class GUI{
 	//private Solver controller;
 	private JList<Example> training, unsolved;
 	private JList<Feature> features;
-	private JMenu menu;
+	private JMenu menu, saveBar, featuresBar;
 	private JMenuBar menuBar;
-	private JMenuItem  reset, addFeature, removeFeature, solve;
+	private JMenuItem  reset, addFeature, removeFeature, solve, save, load;
 	private JButton addTraining, editTraining, removeTraining, addUnsolved, editUnsolved, removeUnsolved;
 	@SuppressWarnings("unused")
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
@@ -33,10 +33,14 @@ public class GUI{
 		unsolvedPane = new JScrollPane(unsolved);
 		menuBar = new JMenuBar();
 		menu = new JMenu("Menu");
+		featuresBar = new JMenu("Features add/remove");
+		saveBar = new JMenu("Save/Load");
 		solve = new JMenuItem("Solve Examples");
+		save = new JMenuItem("Save Session");
+		load = new JMenuItem("Load previous Session");
 		addFeature = new JMenuItem("Add feature");
 		removeFeature = new JMenuItem("Remove feature");
-		reset = new JMenuItem("Reset all to start again");
+		reset = new JMenuItem("Reset all lists");
 		featuresLabel = new JLabel("Features");
 		addTraining = new JButton("Add to training List");
 		editTraining = new JButton("Edit training list");
@@ -63,10 +67,14 @@ public class GUI{
 		
 		//setup all menu bars
 		menuBar.add(menu);
+		menuBar.add(saveBar);
+		menuBar.add(featuresBar);
+		saveBar.add(save);
+		saveBar.add(load);
 		menu.add(solve);
-		//menu.add(reset);
-		menu.add(addFeature);
-		menu.add(removeFeature);
+		menu.add(reset);
+		featuresBar.add(addFeature);
+		featuresBar.add(removeFeature);
 		
 		
 		
@@ -447,4 +455,21 @@ public class GUI{
 	public void setRemoveUnsolved(JButton removeUnsolved) {
 		this.removeUnsolved = removeUnsolved;
 	}
+
+	public JMenuItem getSave() {
+		return save;
+	}
+
+	public void setSave(JMenuItem save) {
+		this.save = save;
+	}
+
+	public JMenuItem getLoad() {
+		return load;
+	}
+
+	public void setLoad(JMenuItem load) {
+		this.load = load;
+	}
+	
 }

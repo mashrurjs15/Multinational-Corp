@@ -1,6 +1,8 @@
 package main;
 
-public class BooleanCompare implements Metric {
+import java.io.Serializable;
+
+public class BooleanCompare implements Metric, Serializable {
 
 	@Override
 	public double getDistance(Feature f, Feature f2) {
