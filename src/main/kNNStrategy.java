@@ -49,11 +49,11 @@ public class kNNStrategy {
 		String ofUnsolved;
 		Metric m;
 		
-		// create list of maximum value from all the training examples.
+		// create list of maximum value from all the training examples. Max value
 		createMaxList(maxList);
 		
-		for(int i = 0; i< unsolvedExampleCollection.getExample().size(); i++) {
-			 ofUnsolved = unsolvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().GetName();
+		for(int i = 0; i< unsolvedExampleCollection.getExample().size(); i++) { // Iterate through the list of examples in the testing collection (eg. Testing 1 then 'check next loop')
+			 ofUnsolved = unsolvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().GetName(); // find the unsolved feature from the testing example then find the name of that feature.
 			 
 			 
 			 Feature inValidCalculationFeature = solvedExampleCollection.getExample().getElementAt(i).getFeature(ofUnsolved);
@@ -113,6 +113,7 @@ public class kNNStrategy {
 		
 	}
 	
+	// Create list of maximum value from all the training examples.
 	public void createMaxList(ArrayList<Double> maxList) {
 		// Step 1: Iterate through list of solved examples and find the MAXIMUM value of each feature from the list of solved examples. This will be used for "Normalizing"
 		for(int k = 0; k < solvedExampleCollection.getExample().size(); k++) { 													 // Iterate through the list of examples in the training collection (eg. Training 1 then 'check next loop')
@@ -121,12 +122,12 @@ public class kNNStrategy {
 						
 				if(solvedExampleCollection.getExample().getElementAt(k).getFeatureIndex(l).GetName().equals("Boolean")) {}  	 // If the training's feature at element l is a boolean, do nothing. We can't normalize a discrete value. Instead we'll make use of other features
 				else if(solvedExampleCollection.getExample().getElementAt(k).getFeatureIndex(l).GetName().equals("Cartesian")) { // maximum cannot be done from (0,0). Need the origin to be the cartesian of the test example.
-					
+					// Need to use Euclidean equation here to input maximum normalization.
 				}
 				else if(maxList.get(l) == null || maxList.get(l) < (Double)solvedExampleCollection.getExample().getElementAt(k).getFeatureIndex(l).GetValue()) { // List starts at 0 and stores training value if it's not boolean.
-					maxList.add((Double)solvedExampleCollection.getExample().getElementAt(k).getFeatureIndex(l).GetValue());				
+					maxList.add((Double)solvedExampleCollection.getExample().getElementAt(k).getFeatureIndex(l).GetValue()); // This works before calculation. and only works for Difference of "Number"		
 				}
-				else {}
+				else {} // this can replace the second else if condition since we checked for boolean and cartesian but incase were adding two new features, we'll leave this here.
 			}
 		}
 	}

@@ -1,12 +1,11 @@
 package main;
  import javax.swing.DefaultListModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Example {
-
-
+public class Example implements Serializable {
 	private DefaultListModel<Feature> features;
 	
 	public Example() {
@@ -51,7 +50,6 @@ public class Example {
 	}
 	
 	public Feature getFeatureIndex(int i) {
-		
 		if(i<features.getSize()) {
 			return features.get(i);
 		}

@@ -1,7 +1,8 @@
 package main;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Euclidian implements Metric{
+public class Euclidian implements Metric, Serializable{
 
 	@Override
 	public double getDistance(Feature f, Feature f2) {
