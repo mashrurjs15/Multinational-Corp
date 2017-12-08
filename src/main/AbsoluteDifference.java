@@ -11,5 +11,4 @@ public class AbsoluteDifference implements Metric {
 	public String getName() {
 		return "AbsoluteDifference";
 	}
-
 }

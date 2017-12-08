@@ -14,7 +14,4 @@ public class BooleanCompare implements Metric {
 	public String getName() {
 		return "BooleanCompare";
 	}
-
-	
-
 }
