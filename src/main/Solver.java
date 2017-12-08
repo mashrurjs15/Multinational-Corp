@@ -50,24 +50,30 @@ public class Solver {
 				switch(s.getType()) {
 					case "Cartesian": if(view.getUNKNOWN_FLAG() == 1) {
 											f = view.valueListOption(s.GetName(),((Cartesian) s).getNumber());
-											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null,f,null,((Cartesian) s).getNumber());
+											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null,f,null,((Cartesian) s).getNumber(),null);
 										}else {
 											f = view.valueListUnknownOption(s.GetName(),((Cartesian) s).getNumber());
-											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null, f,null,((Cartesian) s).getNumber());
+											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null, f,null,((Cartesian) s).getNumber(),null);
 										}
 									break;
 					case "Number": if(view.getUNKNOWN_FLAG() == 1) {
-										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + s.GetName()), null,null,0);
+										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + s.GetName()), null,null,0,null);
 									}else {
-										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleUnknownOption("What is the Double value of the feature " + s.GetName()+ "\nEnter a '?' if this feature is unknown."), null,null,0);
+										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleUnknownOption("What is the Double value of the feature " + s.GetName()+ "\nEnter a '?' if this feature is unknown."), null,null,0,null);
 									}
 									break;
 					case "Boolean":if(view.getUNKNOWN_FLAG() == 1) {
-										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringOption("What is the Boolean value of the feature " + s.GetName()),0);
+										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringOption("What is the Boolean value of the feature " + s.GetName()),0,null);
 									}else {
-										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringUnknownOption("What is the boolean value of the feature " + s.GetName()+ "\nEnter a '?' if this feature is unknown."),0);
+										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringUnknownOption("What is the boolean value of the feature " + s.GetName()+ "\nEnter a '?' if this feature is unknown."),0,null);
 									}
 									break;
+					case "Colour":if(view.getUNKNOWN_FLAG() == 1) {
+						newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOption("What colour do you want for the feature " + s.GetName()));
+					}else {
+						newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOptionUnknown("What colour do you want for the feature " + s.GetName() + "\nEnter a '?' if this feature is unknown."));
+					}
+					break;
 				}
 			}
 			view.setUNKNOWN_FLAG(0);
@@ -86,6 +92,7 @@ public class Solver {
 				    	int i = 0;
 				    	try {
 				    		String t = view.typeOption();
+				    		System.out.println(t);
 				    		if(t.equals("Cartesian")) {
 				    			i = view.cartesianNumber();
 				    		}
@@ -101,7 +108,7 @@ public class Solver {
 					    	}else {
 					    		m = new BooleanCompare();
 					    	}
-					    	featuresModel.addFeature(t,v, m,null,null,null,i);
+					    	featuresModel.addFeature(t,v, m,null,null,null,i,null);
 				    	}catch(Exception n){
 				    		view.error(n);
 				    	}

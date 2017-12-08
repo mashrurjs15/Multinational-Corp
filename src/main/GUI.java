@@ -1,5 +1,8 @@
 package main;
 import javax.swing.*;
+
+import main.Colour.COLOURS;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -16,7 +19,7 @@ public class GUI{
 	@SuppressWarnings("unused")
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
 	private JLabel trainingLabel, unsolvedLabel, featuresLabel;
-	private static final String[] TYPES = {"Number","Cartesian","Boolean"};
+	private static final String[] TYPES = {"Number","Cartesian","Boolean", "Colour"};
 	private static final String[] TYPES_METRICS = {"Euclidian", "BooleanCompare", "Difference", "AbsoluteDifference"};
 	private int UNKNOWN_FLAG = 0;
 	
@@ -284,8 +287,29 @@ public class GUI{
 		return str;
 	}
 	
+	public COLOURS colourOption(String s){
+		
+		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
+				s, "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				COLOURS.values(), COLOURS.values());
+		
+		return c;
+	}
+	
+public COLOURS colourOptionUnknown(String s){
+		
+		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
+				s, "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				COLOURS.values(), COLOURS.values());
+		if(c.equals(COLOURS.UNKNOWN)) {
+			return null;
+		}
+				return c;
+	}
 	public void error(Exception n) {
-		JOptionPane.showMessageDialog(frame,"\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame,n.toString()+"\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void error(String s) {
