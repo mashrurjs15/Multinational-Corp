@@ -46,37 +46,38 @@ public class kNNStrategy {
 		ArrayList<Double> temp = new ArrayList<>();
 		ArrayList<Double> maxList = new ArrayList<>(); // List of maximum value of each features from the group of training collection. Should be in the same order as the collection since it'll store in l.
 		double result = 0;
-		String ofUnsolved;
+		String ofUnsolved; // The name of the empty feature that was found in the test example.
 		Metric m;
 		
-		// create list of maximum value from all the training examples. Max value
+		// Create list of maximum value from all the training examples. Max value
 		createMaxList(maxList);
 		
-		for(int i = 0; i< unsolvedExampleCollection.getExample().size(); i++) { // Iterate through the list of examples in the testing collection (eg. Testing 1 then 'check next loop')
-			 ofUnsolved = unsolvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().GetName(); // find the unsolved feature from the testing example then find the name of that feature.
+		for(int i = 0; i < unsolvedExampleCollection.getExample().size(); i++) { // Iterate through the list of examples in the testing collection (eg. Testing 1 then 'check next loop')
+			 ofUnsolved = unsolvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().GetName(); // Find the unsolved feature from the testing example then find the name of that feature.
 			 
-			 
-			 Feature inValidCalculationFeature = solvedExampleCollection.getExample().getElementAt(i).getFeature(ofUnsolved);
+			 // ofUnsolved feature will then be avoided in calculation since none of the metric would work with the testing example due to the fact that it is empty.
+			 Feature inValidCalculationFeature = solvedExampleCollection.getExample().getElementAt(i).getFeature(ofUnsolved); // Store the feature of the training example that can't be part of the calculation.
 			 ArrayList<Double> temp2 = new ArrayList<>();
-			 for(int j = 0; j < solvedExampleCollection.getExample().size(); j++) {	
+			 for(int j = 0; j < solvedExampleCollection.getExample().size(); j++) {	// Iterate through the list of examples in the training collection
 				 
-				 for(int p = 0; p < solvedExampleCollection.getExample().getElementAt(j).getFeatures().size(); p++) {
-					 if(solvedExampleCollection.getExample().getElementAt(p).getFeatures().equals(inValidCalculationFeature)) {}
-					 else {
-						 Feature tempf1 = solvedExampleCollection.getExample().getElementAt(p).getFeatureIndex(p);
-						 Feature tempf2 = unsolvedExampleCollection.getExample().getElementAt(p).getFeatureIndex(p);
+				 for(int p = 0; p < solvedExampleCollection.getExample().getElementAt(j).getFeatures().size(); p++) { // Iterate through the features of training example j
+					 if(solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p).equals(inValidCalculationFeature)) {} // If the feature is equal to the empty testing feature, ignore and go to next feature
+					 else { // empty feature is ignored and now we figure out the getDistance with the indexed feature
+						 Feature chosenTrainingFeature = solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p); // store training feature to work with
+						 Feature chosenTestingFeature = unsolvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p); // store testing feature to work with
 						 
-						 if (tempf1.getType().equals("Number")) {
+						 // Each condition checks for the Type of Feature
+						 if (chosenTrainingFeature.getType().equals("Number")) {
 							 AbsoluteDifference comp = new AbsoluteDifference();	 
-							 temp2.add(comp.getDistance(tempf1, tempf2));
+							 temp2.add(comp.getDistance(chosenTrainingFeature, chosenTestingFeature));
 						 }
-						 if (tempf1.getType().equals("Boolean")) {
+						 if (chosenTrainingFeature.getType().equals("Boolean")) {
 							 BooleanCompare comp = new BooleanCompare();	 
-							 temp2.add(comp.getDistance(tempf1, tempf2));
+							 temp2.add(comp.getDistance(chosenTrainingFeature, chosenTestingFeature));
 						 }
-						 if (tempf1.getType().equals("Cartesian")) {
+						 if (chosenTrainingFeature.getType().equals("Cartesian")) {
 							 Euclidian comp = new Euclidian();	 
-							 temp2.add(comp.getDistance(tempf1, tempf2));
+							 temp2.add(comp.getDistance(chosenTrainingFeature, chosenTestingFeature));
 						 }
 						 
 					 }

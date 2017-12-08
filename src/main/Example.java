@@ -33,24 +33,22 @@ public class Example implements Serializable {
 		this.features = features;
 	}
 	
-	public Feature getUnsolvedFeature() {
-		
+	public Feature getUnsolvedFeature() {		
 		for(int i = 0; i < features.size(); i++) {
 			if(features.get(i).isEmpty()) return features.get(i);
 		}
-		return null;
+		return null; // there is no empty features Thus this testing example should've been in the training list or was made incorrectly
 	}
 	
-	public Feature getFeature(String s) {
-		
+	public Feature getFeature(String s) {		
 		for(int i = 0; i < features.size(); i++) {
 			if(s.equals(features.getElementAt(i).GetName())) return features.get(i);
 		}
 		return null;
 	}
 	
-	public Feature getFeatureIndex(int i) {
-		if(i<features.getSize()) {
+	public Feature getFeatureIndex(int i) {		
+		if(i < features.getSize()) {
 			return features.get(i);
 		}
 		return null;
