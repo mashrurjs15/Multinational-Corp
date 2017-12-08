@@ -57,7 +57,7 @@ public class Solver {
 		    	try {
 		    		String t = view.typeOption();//prompt the user for the feature they wish to add
 		    		if(t.equals("Cartesian")) {//if the feature is a cartesian ask how many elements it will have
-		    			i = view.cartesianNumber();
+		    			i = view.valueIntOption("How many points will your cartesian have?", false);
 		    		}
 			    	String v = view.valueStringOption("What is the name of the new Feature?",false);//prompt user for the name of the new feature
 			    	String s = view.metricOption();//prompt user for the metric to be used for that feature.
@@ -175,10 +175,10 @@ public class Solver {
 							}else {
 								feature.SetValue(view.valueIntOption("What is the % of the feature "+ feature.GetName()+"\n0 = no damage, 100 max damage\nEnter a '?' if this feature is unknown.", true));
 							}
-							//feature.SetValue(view.valueIntOption("What is the % of the feature "+ feature.GetName()+"\n0 = no damage, 100 max damage.\nEnter a '?' if this feature is unknown.",true));
 						}
 					}
 					view.setUNKNOWN_FLAG(0);
+					view.getUnsolved().repaint();
 				}catch(Exception n) {
 					if((n instanceof NullPointerException) == false) {
 						view.error(n);
@@ -233,6 +233,7 @@ public class Solver {
 							feature.SetValue(view.valueIntOption("What is the % of the feature "+ feature.GetName()+"\n0 = no damage, 100 max damage",false));
 						}
 					}
+					view.getTraining().repaint();
 				}catch(Exception n) {
 					if((n instanceof NullPointerException) == false) {
 						
@@ -281,7 +282,7 @@ public class Solver {
 				int k = 0;
 				//ask for a k value;
 				try {
-					k = view.kOption();
+					k = view.valueIntOption("Please enter the value of k that will be used.",false);
 				} catch (Exception n) {
 					view.error(n);
 				}

@@ -18,6 +18,7 @@ public class Colour extends Feature{
 		this.name = s;
 		this.metric = m;
 		this.value= 9;
+		colour = null;
 	}
 	
 	public Colour(String s,Metric m, COLOURS v){
@@ -25,6 +26,7 @@ public class Colour extends Feature{
 			name = s;
 			metric = m;
 			value = 9;
+			colour = null;
 		}else {
 			name = s;
 			value = v.ordinal();
@@ -52,10 +54,12 @@ public class Colour extends Feature{
 
 	@Override
 	public void SetValue(Object v) {
-		value = (((COLOURS) v).ordinal());
+		colour = (COLOURS) v;
+		value = ((COLOURS) v).ordinal();
 		if(value == 8) {
-			value =9;
+			value = 9;
 		}
+				
 	}
 
 	@Override

@@ -142,14 +142,15 @@ public class GUI{
 		frame.add(unsolvedLabel,c);
 		
 		//show frame
-		frame.setSize(800, 400);
+		frame.setSize(1500, 600);
 		frame.setVisible(true);
 		
 	}
 	
 	/**
-	 * This function opens a dialog box
+	 * This function opens a dialog box that prompts the user for a String and returns that input
 	 * @param s Message that will be on pane
+	 * @param unknown boolean that represent whether or not the user will be prompted for an unknown value or not
 	 * @return the input given by the user
 	 * @throws Exception
 	 */
@@ -168,7 +169,13 @@ public class GUI{
 		
 	}
 	
-	
+	/**
+	 * This function opens a dialog box that prompts the user for a Double and returns that input
+	 * @param s Message that will be on pane
+	 * @param unknown boolean that represent whether or not the user will be prompted for an unknown value or not
+	 * @return the input given by the user
+	 * @throws Exception
+	 */
 	public Double valueDoubleOption(String s, boolean unknown) throws Exception {
 		while(true) {
 			String str = (String)JOptionPane.showInputDialog(frame,
@@ -191,7 +198,15 @@ public class GUI{
 		}
 	}
 	
-	
+	/**
+	 * This function opens a dialog box that prompts the user for a String input and then a Double input.
+	 * these values represent a Cartesian vector as a complex feature made up of Numbers
+	 * @param s Message that will be on pane
+	 * @param length the length of the cartesian feature that we are looking for inputs for
+	 * @param unknown boolean that represent whether or not the user will be prompted for an unknown value or not
+	 * @return the input given by the user
+	 * @throws Exception
+	 */
 	public ArrayList<Number> valueListOption(String s, int length, boolean unknown) throws Exception {
 		ArrayList<Number> d = new ArrayList<Number>();
 		int j = 0;
@@ -213,25 +228,12 @@ public class GUI{
 		}
 		return d;
 	}
-	
-	
-	// Where kNN is used
-	public Integer kOption() throws Exception {
-		while(true) {
-			String str = (String)JOptionPane.showInputDialog(frame, "What is the value of k do you want to solve with?", "k Value");
-			if(str == null || (str != null && ("".equals(str)))){
-				throw new Exception();
-			}
-			try {
-				return Integer.valueOf(str);
-			}
-			catch (NumberFormatException e){
-				JOptionPane.showMessageDialog(frame,"The number entered must be an integer!","Input Error",JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-	
-	
+
+	/**
+	 * This function prompts the user for a type of feature, via a drop down box
+	 * @return a string representation of the feature chosen
+	 * @throws Exception
+	 */
 	public String typeOption() throws Exception {
 		String str = (String) JOptionPane.showInputDialog(frame,
 				"Choose one", "Input",
@@ -244,7 +246,11 @@ public class GUI{
 		return str;
 	}
 	
-	// Work on this metric option for the gui
+	/**
+	 * This function prompts the user for a type of metric, via a drop down box
+	 * @return a string representation of the metric chosen
+	 * @throws Exception
+	 */
 	public String metricOption() throws Exception {
 		String str = (String) JOptionPane.showInputDialog(frame,
 				"Choose a Metric for Feature", "Input",
@@ -257,6 +263,11 @@ public class GUI{
 		return str;
 	}
 	
+	/**
+	 * This function prompts the user for a type of COLOUR, via a drop down box
+	 * @return  the colour chosen by user
+	 * @throws Exception
+	 */
 	public COLOURS colourOption(String s, boolean unknown) throws Exception{
 		COLOURS[] set = null;
 		if(unknown = true) {
@@ -277,6 +288,13 @@ public class GUI{
 		return c;
 	}
 	
+	/**
+	 * This function opens a dialog box that prompts the user for an int and returns that input
+	 * @param s Message that will be on pane
+	 * @param unknown boolean that represent whether or not the user will be prompted for an unknown value or not
+	 * @return the input given by the user
+	 * @throws Exception
+	 */
 	public int valueIntOption(String s, boolean unknown) throws Exception {
 		Double d;
 		if(unknown == true) {
@@ -301,37 +319,29 @@ public class GUI{
 		return 0;
 	}
 	
+	/**
+	 * This function prints an error message to the frame via a panel. Printing a generic message to the screen
+	 * @param n the error that was reported, currently not in use but for testing purposes is useful.
+	 */
 	public void error(Exception n) {
-		JOptionPane.showMessageDialog(frame, n.toString()+"\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
+	/**
+	 * This function prints an error message to the frame via a panel. The message is dependent on the param
+	 * @param s The message that will be displayed on the pane.
+	 */
 	public void error(String s) {
 		JOptionPane.showMessageDialog(frame,s,"Input Error",JOptionPane.ERROR_MESSAGE);
 	}
-	 
+	/**
+	 * This function prints to the screen a pane with the results from the knn problem solution.
+	 * @param s the list of Doubles sent by the KNN solver
+	 */
 	public void printKNN(ArrayList<Double> s) {
-		JOptionPane.showMessageDialog(frame, "The kNN for each test in order is:" + s, "kNN List",JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "The kNN for each test in order is:" + s.toString(), "kNN List",JOptionPane.INFORMATION_MESSAGE);
 	}
-	public int cartesianNumber() throws Exception {
-		String str = null;
-		try {
-			str = (String)JOptionPane.showInputDialog(frame,
-					"How many points will your cartesian have?");
-			if(str == null || (str != null && ("".equals(str))))   
-			{
-			    throw new Exception();
-			}
-			return(Integer.valueOf(str));
-		}catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-		}
-		return 0;
-	}
-	
-	
-	
-	
-	
+
 	public int getUNKNOWN_FLAG() {
 		return UNKNOWN_FLAG;
 	}
@@ -344,54 +354,25 @@ public class GUI{
 		return solve;
 	}
 
-	public void setSolve(JMenuItem solve) {
-		this.solve = solve;
-	}
-
 	public JList<Feature> getFeatures() {
 		return features;
 	}
-
 
 	public void setFeatures(DefaultListModel<Feature> feature) {
 		features = new JList<Feature>(feature);
 	}
 
-
 	public JMenuItem getRemoveFeature() {
 		return removeFeature;
 	}
-
-
-	public void setRemoveFeature(JMenuItem removeFeature) {
-		this.removeFeature = removeFeature;
-	}
-
 
 	public JMenuItem getAddFeature() {
 		return addFeature;
 	}
 
-
-	public void setAddFeature(JMenuItem addFeature) {
-		this.addFeature = addFeature;
-	}
-
-
-	public void setAddTraining(JButton addTraining) {
-		this.addTraining = addTraining;
-	}
-
-
-	public void setAddUnsolved(JButton addUnsolved) {
-		this.addUnsolved = addUnsolved;
-	}
-
-
 	public JButton getAddTraining() {
 		return addTraining;
 	}
-
 
 	public JButton getAddUnsolved() {
 		return addUnsolved;
@@ -401,86 +382,51 @@ public class GUI{
 		return reset;
 	}
 
-
-	public void setReset(JMenuItem reset) {
-		this.reset = reset;
-	}
-
-
 	public JButton getEditTraining() {
 		return editTraining;
 	}
-
 
 	public void setEditTraining(JButton editTraining) {
 		this.editTraining = editTraining;
 	}
 
-
 	public JButton getRemoveTraining() {
 		return removeTraining;
 	}
-
 
 	public void setRemoveTraining(JButton removeTraining) {
 		this.removeTraining = removeTraining;
 	}
 
-
 	public JButton getEditUnsolved() {
 		return editUnsolved;
 	}
-
-
-	public void setEditUnsolved(JButton editUnsolved) {
-		this.editUnsolved = editUnsolved;
-	}
-
 
 	public JButton getRemoveUnsolved() {
 		return removeUnsolved;
 	}
 
-
 	public JList<Example> getTraining() {
 		return training;
 	}
 
-
 	public void setTraining(DefaultListModel<Example> defaultListModel) {
 		training = new JList<Example>(defaultListModel);
-		
 	}
-
 
 	public JList<Example> getUnsolved() {
 		return unsolved;
 	}
 
-
 	public void setUnsolved(DefaultListModel<Example> unsolve) {
 		unsolved = new JList<Example>(unsolve);
-	}
-
-
-	public void setRemoveUnsolved(JButton removeUnsolved) {
-		this.removeUnsolved = removeUnsolved;
 	}
 
 	public JMenuItem getSave() {
 		return save;
 	}
 
-	public void setSave(JMenuItem save) {
-		this.save = save;
-	}
-
 	public JMenuItem getLoad() {
 		return load;
 	}
-
-	public void setLoad(JMenuItem load) {
-		this.load = load;
-	}
-	
 }
