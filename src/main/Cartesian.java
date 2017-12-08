@@ -4,14 +4,14 @@ import java.util.ArrayList;
 public class Cartesian extends Feature {
 	
 	private String name;
-	private ArrayList<Double> values;
+	private ArrayList<Number> values;
 	private static final String TYPE = "Cartesian";
 	private int number;
 	public Cartesian(String s) {
 		name = s;
 
 	}
-	public Cartesian(String s,Metric m, ArrayList<Double> value, int num) {
+	public Cartesian(String s,Metric m, ArrayList<Number> value, int num) {
 		name = s;
 		this.values = value;
 		this.metric = m;
@@ -35,14 +35,14 @@ public class Cartesian extends Feature {
 		name = s;
 	}
 	
-	public ArrayList<Double> GetValue() {
+	public ArrayList<Number> GetValue() {
 		// TODO Auto-generated method stub
 		return values;
 	}
 	
 
 	public void SetValue(Object v) {
-		values = (ArrayList<Double>)v; 
+		values = (ArrayList<Number>)v; 
 	}
 	
 
@@ -70,7 +70,7 @@ public class Cartesian extends Feature {
 			return name + " ("+TYPE+")"+ "("+metric.getName()+")";
 		}else {
 			String s = "< ";
-			for(Double d : values ) {
+			for(Number d : values ) {
 				s = s + ", " + d.toString();
 			}s = s + "> ("+name+")";
 			return s;

@@ -38,6 +38,8 @@ public class Solver {
 	
 	private void createExample(ExampleCollection e) {	
 		Feature s;
+		ArrayList<Double> d = new ArrayList<Double>();
+		ArrayList<Number> f = new ArrayList<Number>();
 		Example newE = new Example();
 		if(featuresModel.getFeatureList().size() == 0) {
 			view.error("There are no features. \nAdd features before adding examples.");
@@ -47,21 +49,23 @@ public class Solver {
 				s = featuresModel.getFeatureList().getElementAt(i);
 				switch(s.getType()) {
 					case "Cartesian": if(view.getUNKNOWN_FLAG() == 1) {
-											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null,view.valueListOption(s.GetName(),((Cartesian) s).getNumber()),null,((Cartesian) s).getNumber());
+											f = view.valueListOption(s.GetName(),((Cartesian) s).getNumber());
+											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null,f,null,((Cartesian) s).getNumber());
 										}else {
-											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null, view.valueListUnknownOption(s.GetName(),((Cartesian) s).getNumber()),null,((Cartesian) s).getNumber());
+											f = view.valueListUnknownOption(s.GetName(),((Cartesian) s).getNumber());
+											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null, f,null,((Cartesian) s).getNumber());
 										}
 									break;
 					case "Number": if(view.getUNKNOWN_FLAG() == 1) {
-										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleOption(s.GetName()), null,null,0);
+										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + s.GetName()), null,null,0);
 									}else {
-										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleUnknownOption(s.GetName()), null,null,0);
+										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleUnknownOption("What is the Double value of the feature " + s.GetName()+ "\nEnter a '?' if this feature is unknown."), null,null,0);
 									}
 									break;
 					case "Boolean":if(view.getUNKNOWN_FLAG() == 1) {
-										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringOption(s.GetName()),0);
+										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringOption("What is the Boolean value of the feature " + s.GetName()),0);
 									}else {
-										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringUnknownOption(s.GetName()),0);
+										newE.addFeature( "Boolean",s.GetName(),s.GetMetric(),null,null, view.valueStringUnknownOption("What is the boolean value of the feature " + s.GetName()+ "\nEnter a '?' if this feature is unknown."),0);
 									}
 									break;
 				}
@@ -85,7 +89,7 @@ public class Solver {
 				    		if(t.equals("Cartesian")) {
 				    			i = view.cartesianNumber();
 				    		}
-					    	String v = view.valueStringOption("new");
+					    	String v = view.valueStringOption("What is the name of the new Feature?");
 					    	String s = view.metricOption();
 					    	Metric m;
 					    	if(s.equals("Euclidian")) {
@@ -143,9 +147,9 @@ public class Solver {
 								if(f.getElementAt(i) instanceof Cartesian) {
 									f.getElementAt(i).SetValue(view.valueListOption(f.getElementAt(i).GetName(),((Cartesian) f.getElementAt(i)).getNumber()));
 								}else if(f.getElementAt(i) instanceof Number) {
-									f.getElementAt(i).SetValue(view.valueDoubleOption(f.getElementAt(i).GetName()));
+									f.getElementAt(i).SetValue(view.valueDoubleOption("What is the Double value of the feature " + f.getElementAt(i).GetName()));
 								}else {
-									f.getElementAt(i).SetValue(view.valueStringOption(f.getElementAt(i).GetName()));
+									f.getElementAt(i).SetValue(view.valueStringOption("What is the Boolean value of the feature " + f.getElementAt(i).GetName()));
 								}
 								
 							}
@@ -178,9 +182,9 @@ public class Solver {
 								if(f.getElementAt(i) instanceof Cartesian) {
 									f.getElementAt(i).SetValue(view.valueListOption(f.getElementAt(i).GetName(),((Cartesian) f.getElementAt(i)).getNumber()));
 								}else if(f.getElementAt(i) instanceof Number) {
-									f.getElementAt(i).SetValue(view.valueDoubleOption(f.getElementAt(i).GetName()));
+									f.getElementAt(i).SetValue(view.valueDoubleOption("What is the Double value of the feature " + f.getElementAt(i).GetName()));
 								}else {
-									f.getElementAt(i).SetValue(view.valueStringOption(f.getElementAt(i).GetName()));
+									f.getElementAt(i).SetValue(view.valueStringOption("What is the Boolean value of the feature " + f.getElementAt(i).GetName()));
 								}
 								
 							}

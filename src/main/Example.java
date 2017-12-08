@@ -19,7 +19,7 @@ public class Example implements Serializable {
 		return features;
 	}
 	
-	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Double> d2, String v, int cartNum) {
+	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Number> d2, String v, int cartNum) {
 		if(type == "Cartesian") {
 			features.addElement(new Cartesian(s,m,d2,cartNum));
 		}else if(type == "Boolean") {
