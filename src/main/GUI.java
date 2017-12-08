@@ -244,21 +244,18 @@ public class GUI{
 	}
 	
 	// Where kNN is used
-	
 	public Integer kOption() throws Exception {
 		while(true) {
-		String str = (String)JOptionPane.showInputDialog(frame,
-					"What is the value of k do you want to solve with?", "k Value");
-		if(str == null || (str != null && ("".equals(str))))   
-		{
-		    throw new Exception();
-		}
-		try {
-			return Integer.valueOf(str);
-		}
-		catch (NumberFormatException e){
-			JOptionPane.showMessageDialog(frame,"The number entered must be an integer!","Input Error",JOptionPane.ERROR_MESSAGE);
-		}
+			String str = (String)JOptionPane.showInputDialog(frame, "What is the value of k do you want to solve with?", "k Value");
+			if(str == null || (str != null && ("".equals(str)))){
+				throw new Exception();
+			}
+			try {
+				return Integer.valueOf(str);
+			}
+			catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(frame,"The number entered must be an integer!","Input Error",JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	
@@ -350,6 +347,9 @@ public class GUI{
 		JOptionPane.showMessageDialog(frame,s,"Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	 
+	public void printKNN(ArrayList<Double> s) {
+		JOptionPane.showMessageDialog(frame, "The kNN for each test in order is:" + s, "kNN List",JOptionPane.INFORMATION_MESSAGE);
+	}
 	public int cartesianNumber() throws Exception {
 		String str = null;
 		try {

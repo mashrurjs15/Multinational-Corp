@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class Solver {
 	
@@ -238,8 +239,9 @@ public class Solver {
 							view.error(n);
 						}
 						kNNAnswer = new kNNStrategy(k,unsolvedModel, trainingModel);
+
+						view.printKNN(kNNAnswer.solveKNN());
 						
-						kNNAnswer.solveKNN();
 					}
 				});
 				
