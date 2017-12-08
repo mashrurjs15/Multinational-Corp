@@ -42,7 +42,7 @@ public class kNNStrategy {
 	 */
 	public ArrayList<Double> solveKNN() {
 		
-		ArrayList<Double> temp = new ArrayList<>(); // List of result in the orders of training examples (eg. result is the trainingN with testingM)
+		 // List of result in the orders of training examples (eg. result is the trainingN with testingM)
 		ArrayList<Double> maxList = new ArrayList<>(); // List of maximum value of each features from the group of training collection. Should be in the same order as the collection since it'll store in l.
 		double result = 0;
 		String ofUnsolved; // The name of the empty feature that was found in the test example.
@@ -50,16 +50,17 @@ public class kNNStrategy {
 
 		for(int i = 0; i < unsolvedExampleCollection.getExample().size(); i++) { // Iterate through the list of examples in the testing collection (eg. Testing 1 then 'check next loop')
  
+			 ArrayList<Double> temp = new ArrayList<>();
 			 ofUnsolved = unsolvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().GetName(); // Find the unsolved feature from the testing example then find the name of that feature.
 		
 			 // ofUnsolved feature will then be avoided in calculation since none of the metric would work with the testing example due to the fact that it is empty.
-			 Feature inValidCalculationFeature = solvedExampleCollection.getExample().getElementAt(i).getFeature(ofUnsolved); // Store the feature of the training example that can't be part of the calculation.
+			 //Feature inValidCalculationFeature = solvedExampleCollection.getExample().getElementAt(i).getFeature(ofUnsolved); // Store the feature of the training example that can't be part of the calculation.
 
 			 for(int j = 0; j < solvedExampleCollection.getExample().size(); j++) {	// Iterate through the list of examples in the training collection
 				 
 				 for(int p = 0; p < solvedExampleCollection.getExample().getElementAt(j).getFeatures().size(); p++) { // Iterate through the features of training example j and save getDistance result into getDistanceCalculation
-					 if(solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p).GetName().equals(inValidCalculationFeature.GetName())) {
-						 if(inValidCalculationFeature.equals("Boolean")) {} // Do nothing since maxList doesn't have anything to do with Boolean
+					 if(solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p).GetName().equals(ofUnsolved)) {
+						 if(ofUnsolved.equals("Boolean")) {} // Do nothing since maxList doesn't have anything to do with Boolean
 						 else {}// maxList.remove(p); //Remove the maxList value since we want it to match with the getDistanceCalculation for later
 						 
 					 } // If the feature is equal to the empty testing feature, ignore and go to next feature
