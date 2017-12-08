@@ -1,5 +1,8 @@
 package main;
 import javax.swing.*;
+
+import main.Colour.COLOURS;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -16,7 +19,8 @@ public class GUI{
 	@SuppressWarnings("unused")
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
 	private JLabel trainingLabel, unsolvedLabel, featuresLabel;
-	private static final String[] TYPES = {"Number","Cartesian","Boolean"};
+	private static final String[] TYPES = {"Number","Cartesian","Boolean", "Colour", "DamagePercent"};
+	private static final COLOURS[] KNOWN_COLOURS = {COLOURS.RED, COLOURS.ORANGE,COLOURS.YELLOW,COLOURS.GREEN,COLOURS.BLUE,COLOURS.INDIGO,COLOURS.VIOLET};
 	private static final String[] TYPES_METRICS = {"Euclidian", "BooleanCompare", "Difference", "AbsoluteDifference"};
 	private int UNKNOWN_FLAG = 0;
 	
@@ -148,7 +152,7 @@ public class GUI{
 	
 	public String valueStringOption(String s) throws Exception {
 		String str = (String)JOptionPane.showInputDialog(frame,
-				"What is the name of the "+ s + " feature?");
+				s);
 		if(str == null || (str != null && ("".equals(str))))   
 		{
 		    throw new Exception();
@@ -159,7 +163,7 @@ public class GUI{
 	
 	public String valueStringUnknownOption(String s) throws Exception {
 		String str = (String)JOptionPane.showInputDialog(frame,
-				"What is the name of the "+ s + " feature? \nEnter '?' if it is unknown.");
+				s);
 		if(str == null || (str != null && ("".equals(str))))   
 		{
 		    throw new Exception();
@@ -174,7 +178,7 @@ public class GUI{
 	public Double valueDoubleOption(String s) throws Exception {
 		while(true) {
 			String str = (String)JOptionPane.showInputDialog(frame,
-					"What is the (Double) value of the "+s+" feature?");
+					s);
 		
 		if(str == null || (str != null && ("".equals(str))))   
 		{
@@ -193,7 +197,7 @@ public class GUI{
 		while(true) {
 		try{
 			str = JOptionPane.showInputDialog(frame,
-					"What is the (Double) value of the "+s+" feature? Enter '?' if it is unknown.", "Value",JOptionPane.OK_OPTION);
+					s, "Value",JOptionPane.OK_OPTION);
 			if(str == null || (str != null && ("".equals(str))))   
 			{
 			    throw new Exception();
@@ -211,51 +215,32 @@ public class GUI{
 		}
 	}
 	
-	public ArrayList<Double> valueListOption(String s, int length) throws Exception {
-		ArrayList<Double> d = new ArrayList<Double>();
+	public ArrayList<Number> valueListOption(String s, int length) throws Exception {
+		ArrayList<Number> d = new ArrayList<Number>();
 		for(int i = 0; i <length;i++) {
-			try{
-				String str = JOptionPane.showInputDialog(frame,
-    					"What is the next (Double) value of the "+s+" feature?");
-				if(str == null || (str != null && ("".equals(str))))   
-    			{
-    			    throw new Exception();
-    			}
-    			d.add(Double.valueOf(str));
-    		}catch (NumberFormatException e){
-    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-    		}
-			
+				String str = valueStringOption("What is the name of the "+ i +" element of the Cartesian?");
+				Double newNum = valueDoubleOption("What is the value of the "+ i +" element of the Cartesian?");
+    			d.add(new Number(str,null,newNum));
 		}
 		return d;
 	}
 	
-	public ArrayList<Double> valueListUnknownOption(String s, int length) throws Exception {
-		
-		ArrayList<Double> d = new ArrayList<Double>();
-		String str = JOptionPane.showInputDialog(frame,
-				"What is the first (Double) value of the "+s+" feature? Enter '?' if the feature is unknown.", "Value",JOptionPane.OK_OPTION);
+	public ArrayList<Number> valueListUnknownOption(String s, int length) throws Exception {
+		ArrayList<Number> d = new ArrayList<Number>();
+		String str = valueStringOption("What is the name of the 1st element of the Cartesian?\nEnter a '?' if this feature is unknown.");
 		if(str.equals("?")) {
 			UNKNOWN_FLAG = 1;
 			return null;
-		}
-		else {
-			try {
-				d.add(Double.valueOf(str));
-				for(int i = 1; i <length;i++) {
-						str = JOptionPane.showInputDialog(frame,
-		    					"What is the next (Double) value of the "+s+" feature?");
-						if(str == null || (str != null && ("".equals(str))))   
-		    			{
-		    			    throw new Exception();
-		    			}
-		    			d.add(Double.valueOf(str));
-				}
-			}catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-			}
+		}else {
+			Double newNum = valueDoubleOption("What is the name of the 1st element of the Cartesian?");
+			d.add(new Number(str,null,newNum));
+			for(int i = 0; i <length;i++) {
+				str = valueStringOption("What is the name of the "+ i +" element of the Cartesian?");
+				newNum = valueDoubleOption("What is the value of the "+ i +" element of the Cartesian?");
+    			d.add(new Number(str,null,newNum));
 		}
 		return d;
+		}
 	}
 	
 	// Where kNN is used
@@ -303,8 +288,62 @@ public class GUI{
 		return str;
 	}
 	
+	public COLOURS colourOption(String s) throws Exception{
+		
+		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
+				s, "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				KNOWN_COLOURS, KNOWN_COLOURS[0]);
+		if(c == null || (c != null && ("".equals(c))))   
+		{
+		    throw new Exception();
+		}
+		return c;
+	}
+	
+	public COLOURS colourUnknownOption(String s) throws Exception{
+		
+		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
+				s, "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				COLOURS.values(), COLOURS.values());
+		if(c == null || (c != null && ("".equals(c))))   
+		{
+		    throw new Exception();
+		}
+		if(c.equals(COLOURS.UNKNOWN)) {
+			return null;
+		}
+				return c;
+	}
+	
+	
+	public int valueIntOption(String s, int unknown) throws Exception {
+		Double d;
+		if(unknown == 0) {
+			d = valueDoubleOption(s);
+		}else {
+			d = valueDoubleUnknownOption(s);
+			if(d == null) {
+				return 0;
+			}
+		}
+		int i = d.intValue();
+		try {
+			if(i<=100 || i>=0) {
+				return i;
+			}else {
+				throw new Exception();
+			}
+		}catch(Exception n) {
+			error("The value entered was not a correct percentage");
+		}
+		
+		return 0;
+	}
+	
 	public void error(Exception n) {
-		JOptionPane.showMessageDialog(frame,"There was an exception of type: " + n.toString() + "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void error(String s) {
@@ -315,7 +354,7 @@ public class GUI{
 		String str = null;
 		try {
 			str = (String)JOptionPane.showInputDialog(frame,
-					"How many points will your cartesian have?", "Number of Cartesians");
+					"How many points will your cartesian have?");
 			if(str == null || (str != null && ("".equals(str))))   
 			{
 			    throw new Exception();

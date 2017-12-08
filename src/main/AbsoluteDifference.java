@@ -13,5 +13,4 @@ public class AbsoluteDifference implements Metric, Serializable {
 	public String getName() {
 		return "AbsoluteDifference";
 	}
-
 }

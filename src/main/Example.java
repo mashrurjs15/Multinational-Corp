@@ -19,13 +19,17 @@ public class Example implements Serializable {
 		return features;
 	}
 	
-	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Double> d2, String v, int cartNum) {
+	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Number> d2, String v, int num, Colour.COLOURS c) {
 		if(type == "Cartesian") {
-			features.addElement(new Cartesian(s,m,d2,cartNum));
+			features.addElement(new Cartesian(s,m,d2,num));
 		}else if(type == "Boolean") {
 			features.addElement(new Boolean(s,m,v));
-		}else {
+		}else if (type == "Number") {
 			features.addElement(new Number(s,m,d1));
+		}else if (type == "Colour"){
+			features.addElement(new Colour(s,m,c));
+		}else {
+			features.addElement(new DamagePercent(s,m,num));
 		}
 	}
 

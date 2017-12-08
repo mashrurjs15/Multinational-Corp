@@ -16,7 +16,4 @@ public class BooleanCompare implements Metric, Serializable {
 	public String getName() {
 		return "BooleanCompare";
 	}
-
-	
-
 }
