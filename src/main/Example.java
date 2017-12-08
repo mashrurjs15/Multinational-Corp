@@ -42,6 +42,7 @@ public class Example implements Serializable {
 	}
 	
 	public void addGenericFeature(String t,String s, Metric m, int i){
+		//I tried generics so hard.... they are the worst
 		switch(t) {
 		case "Cartesian":
 			features.addElement(new Cartesian(s,m,i));
