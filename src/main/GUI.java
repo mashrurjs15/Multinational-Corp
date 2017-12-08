@@ -148,7 +148,7 @@ public class GUI{
 	
 	public String valueStringOption(String s) throws Exception {
 		String str = (String)JOptionPane.showInputDialog(frame,
-				"What is the value/name of the "+ s + " feature?");
+				"What is the name of the "+ s + " feature?");
 		if(str == null || (str != null && ("".equals(str))))   
 		{
 		    throw new Exception();
@@ -211,55 +211,49 @@ public class GUI{
 		}
 	}
 	
-	public ArrayList<Double> valueListOption(String s) {
+	public ArrayList<Double> valueListOption(String s, int length) throws Exception {
 		ArrayList<Double> d = new ArrayList<Double>();
-		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-				"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
-		while(true) {
-			int reply = JOptionPane.showConfirmDialog(frame, "Would you like to add another value?", "Another value", JOptionPane.YES_NO_OPTION);
-	        if (reply == JOptionPane.YES_OPTION) {
-	        	try{
-	    			d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-	    					"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
-	    		}catch (NumberFormatException e){
-	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-	    		}
-	        }else {
-	        	break;
-	        }
+		for(int i = 0; i <length;i++) {
+			try{
+				String str = JOptionPane.showInputDialog(frame,
+    					"What is the next (Double) value of the "+s+" feature?");
+				if(str == null || (str != null && ("".equals(str))))   
+    			{
+    			    throw new Exception();
+    			}
+    			d.add(Double.valueOf(str));
+    		}catch (NumberFormatException e){
+    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+    		}
+			
 		}
 		return d;
 	}
 	
-	public ArrayList<Double> valueListUnknownOption(String s) {
+	public ArrayList<Double> valueListUnknownOption(String s, int length) throws Exception {
+		
 		ArrayList<Double> d = new ArrayList<Double>();
-		String str;
-		str = JOptionPane.showInputDialog(frame,
-				"What is the next (Double) value of the "+s+" feature? Enter '?' if it us unknown.", "Value",JOptionPane.OK_OPTION);
-		System.out.println(str);
+		String str = JOptionPane.showInputDialog(frame,
+				"What is the first (Double) value of the "+s+" feature? Enter '?' if the feature is unknown.", "Value",JOptionPane.OK_OPTION);
 		if(str.equals("?")) {
 			UNKNOWN_FLAG = 1;
 			return null;
-		}else {
-			try{
-				d.add(Double.valueOf(str));
-    		}catch (NumberFormatException e){
-    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-    		}
 		}
-		while(true) {
-			int reply = JOptionPane.showConfirmDialog(frame, "Would you like to add another value?", "Another value", JOptionPane.YES_NO_OPTION);
-	        if (reply == JOptionPane.YES_OPTION) {
-	        	try{
-	        		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-	    					"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
-	    			
-	    		}catch (NumberFormatException e){
-	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-	    		}
-	        }else {
-	        	break;
-	        }
+		else {
+			try {
+				d.add(Double.valueOf(str));
+				for(int i = 1; i <length;i++) {
+						str = JOptionPane.showInputDialog(frame,
+		    					"What is the next (Double) value of the "+s+" feature?");
+						if(str == null || (str != null && ("".equals(str))))   
+		    			{
+		    			    throw new Exception();
+		    			}
+		    			d.add(Double.valueOf(str));
+				}
+			}catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		return d;
 	}
@@ -317,6 +311,21 @@ public class GUI{
 		JOptionPane.showMessageDialog(frame,s,"Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	 
+	public int cartesianNumber() throws Exception {
+		String str = null;
+		try {
+			str = (String)JOptionPane.showInputDialog(frame,
+					"How many points will your cartesian have?", "Number of Cartesians");
+			if(str == null || (str != null && ("".equals(str))))   
+			{
+			    throw new Exception();
+			}
+			return(Integer.valueOf(str));
+		}catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+		}
+		return (Integer) null;
+	}
 	
 	
 	

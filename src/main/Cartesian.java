@@ -6,14 +6,16 @@ public class Cartesian extends Feature {
 	private String name;
 	private ArrayList<Double> values;
 	private static final String TYPE = "Cartesian";
+	private int number;
 	public Cartesian(String s) {
 		name = s;
 
 	}
-	public Cartesian(String s,Metric m, ArrayList<Double> value) {
+	public Cartesian(String s,Metric m, ArrayList<Double> value, int num) {
 		name = s;
 		this.values = value;
 		this.metric = m;
+		this.number = num;
 	}
 	
 	public void SetMetric(Metric m) {
@@ -79,6 +81,12 @@ public class Cartesian extends Feature {
 	}
 	public String getType() {
 		return TYPE;
+	}
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 	
