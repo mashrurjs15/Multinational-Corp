@@ -42,7 +42,6 @@ public class kNNStrategy {
 	 */
 	public ArrayList<Double> solveKNN() {
 		
-		// unsolvedExampleCollection, solvedExampleCollection
 		ArrayList<Double> temp = new ArrayList<>(); // List of result in the orders of training examples (eg. result is the trainingN with testingM)
 		ArrayList<Double> maxList = new ArrayList<>(); // List of maximum value of each features from the group of training collection. Should be in the same order as the collection since it'll store in l.
 		double result = 0;
