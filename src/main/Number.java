@@ -5,6 +5,12 @@ public class Number extends Feature{
 	private Double value;
 	private static final String TYPE = "Number";
 	
+	public Number(String s, Metric m) {
+
+		name = s;
+		value = null;
+		metric = m;
+	}
 
 	public Number(String s, Metric m, Double d) {
 

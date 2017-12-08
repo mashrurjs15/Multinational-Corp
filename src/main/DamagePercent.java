@@ -7,6 +7,12 @@ public class DamagePercent extends Feature{
 	private static final int NULL_VALUE = 101;
 	private static final String TYPE = "DamagePercent";
 	
+	public DamagePercent(String s,Metric m) {
+		name = s;
+		value = 0;
+		metric = m;
+	}
+	
 	public DamagePercent(String s,Metric m, int v) {
 		name = s;
 		value = v;

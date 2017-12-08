@@ -2,6 +2,8 @@ package main;
  import javax.swing.DefaultListModel;
 
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,17 +21,43 @@ public class Example implements Serializable {
 		return features;
 	}
 	
-	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Number> d2, String v, int num, Colour.COLOURS c) {
-		if(type == "Cartesian") {
-			features.addElement(new Cartesian(s,m,d2,num));
-		}else if(type == "Boolean") {
-			features.addElement(new Boolean(s,m,v));
-		}else if (type == "Number") {
-			features.addElement(new Number(s,m,d1));
-		}else if (type == "Colour"){
-			features.addElement(new Colour(s,m,c));
-		}else {
-			features.addElement(new DamagePercent(s,m,num));
+	public void addFeature(String s, Metric m, ArrayList<Number> d2, int num) {
+		features.addElement(new Cartesian(s,m,d2,num));
+	}
+	
+	public void addFeature(String s, Metric m,  String v) {
+		features.addElement(new Boolean(s,m,v));
+	}
+	
+	public void addFeature(String s, Metric m,  Double d1) {
+		features.addElement(new Number(s,m,d1));
+	}
+	
+	public void addFeature(String s, Metric m,  Colour.COLOURS c) {
+		features.addElement(new Colour(s,m,c));
+	}
+	
+	public void addFeature(String s, Metric m,  int num) {
+		features.addElement(new DamagePercent(s,m,num));
+	}
+	
+	public void addGenericFeature(String t,String s, Metric m, int i){
+		switch(t) {
+		case "Cartesian":
+			features.addElement(new Cartesian(s,m,i));
+			break;
+		case "Number":
+			features.addElement(new Number(s,m));
+			break;
+		case "Boolean":
+			features.addElement(new Boolean(s,m));
+			break;
+		case "Colour":
+			features.addElement(new Colour(s,m));
+			break;
+		case "DamagePercent":
+			features.addElement(new DamagePercent(s,m));
+			break;
 		}
 	}
 

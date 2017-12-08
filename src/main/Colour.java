@@ -14,6 +14,12 @@ public class Colour extends Feature{
 	private static final int NULL_VALUE = 9;
 	private static String TYPE = "Colour";
 	
+	public Colour(String s, Metric m) {
+		this.name = s;
+		this.metric = m;
+		this.value = 9;
+	}
+	
 	public Colour(String s,Metric m, COLOURS v){
 		if(v == null) {
 			name = s;

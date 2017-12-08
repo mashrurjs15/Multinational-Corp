@@ -11,6 +11,12 @@ public class Cartesian extends Feature {
 		name = s;
 
 	}
+	public Cartesian(String s, Metric m, int i) {
+		this.name = s;
+		this.metric = m;
+		this.number = i;
+		this.values = null;
+	}
 	public Cartesian(String s,Metric m, ArrayList<Number> value, int num) {
 		name = s;
 		this.values = value;
@@ -69,10 +75,12 @@ public class Cartesian extends Feature {
 		if(values == null) {
 			return name + " ("+TYPE+")"+ "("+metric.getName()+")";
 		}else {
-			String s = "< ";
+			String s = "<";
 			for(Number d : values ) {
-				s = s + ", " + d.toString();
-			}s = s + "> ("+name+")";
+				s = s  + d.toString()+ ", ";
+			}
+			s = s.substring(0, s.length()-2);
+			s = s + "> ("+name+")";
 			return s;
 		}
 		

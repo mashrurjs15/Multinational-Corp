@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class GUI{
 	private JFrame frame;
-	//private Solver controller;
 	private JList<Example> training, unsolved;
 	private JList<Feature> features;
 	private JMenu menu, saveBar, featuresBar;
@@ -24,8 +23,7 @@ public class GUI{
 	private static final String[] TYPES_METRICS = {"Euclidian", "BooleanCompare", "Difference", "AbsoluteDifference"};
 	private int UNKNOWN_FLAG = 0;
 	
-	public GUI(Solver cl) {
-		//controller = cl;
+	public GUI() {
 	}
 	
 	public void setUp() {
@@ -340,7 +338,7 @@ public class GUI{
 	}
 	
 	public void error(Exception n) {
-		JOptionPane.showMessageDialog(frame, "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame, n.toString()+"\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void error(String s) {
@@ -363,7 +361,7 @@ public class GUI{
 		}catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
 		}
-		return (Integer) null;
+		return 0;
 	}
 	
 	

@@ -6,6 +6,12 @@ public class Boolean extends Feature {
 	
 	private static final String TYPE = "Boolean";
 	
+	public Boolean(String s, Metric m) {
+		this.name = s;
+		this.metric = m;
+		this.value = null;
+	}
+	
 	public Boolean(String s,Metric m, String v) {
 		name = s;
 		value = v;
