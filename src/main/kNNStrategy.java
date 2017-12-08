@@ -124,7 +124,7 @@ public class kNNStrategy {
 				 temp.add(result); // add the result of that training and trainer into temp array.
 				 result = 0; // reset result back to 0
 			 }
-			 
+			 // FIGURE OUT THIS PART*************************************************************
 			 resultList = new HashMap<Double,Feature>();
 			 
 			 for(int j = 0; j < solvedExampleCollection.getExample().getSize(); j++)
