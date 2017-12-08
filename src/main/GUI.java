@@ -23,11 +23,10 @@ public class GUI{
 	private static final String[] TYPES_METRICS = {"Euclidian", "BooleanCompare", "Difference", "AbsoluteDifference"};
 	private int UNKNOWN_FLAG = 0;
 	
-	public GUI() {
-	}
-	
+	/**
+	 * setUp() initializes all components and places them on the frame of the GUI. Its a fun one to read. GoodLuck
+	 */
 	public void setUp() {
-		
 		//initiate all GUI objects
 		frame = new JFrame("Machine Learning");
 		featuresPane = new JScrollPane(features);
@@ -148,98 +147,73 @@ public class GUI{
 		
 	}
 	
-	public String valueStringOption(String s) throws Exception {
+	/**
+	 * This function opens a dialog box
+	 * @param s Message that will be on pane
+	 * @return the input given by the user
+	 * @throws Exception
+	 */
+	public String valueStringOption(String s, boolean unknown) throws Exception {
 		String str = (String)JOptionPane.showInputDialog(frame,
 				s);
 		if(str == null || (str != null && ("".equals(str))))   
 		{
 		    throw new Exception();
 		}
-		return str;
-		
-	}
-	
-	public String valueStringUnknownOption(String s) throws Exception {
-		String str = (String)JOptionPane.showInputDialog(frame,
-				s);
-		if(str == null || (str != null && ("".equals(str))))   
-		{
-		    throw new Exception();
-		}
-		if (str.equals("?")) {
+		if(unknown == true & str.equals("?")) {
 			UNKNOWN_FLAG = 1;
 			return null;
 		}
 		return str;
+		
 	}
 	
-	public Double valueDoubleOption(String s) throws Exception {
+	
+	public Double valueDoubleOption(String s, boolean unknown) throws Exception {
 		while(true) {
 			String str = (String)JOptionPane.showInputDialog(frame,
 					s);
-		
-		if(str == null || (str != null && ("".equals(str))))   
-		{
-		    throw new Exception();
-		}
-		try {
-			return Double.valueOf(str);
-		}catch (NumberFormatException e){
-			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-		}
-		}
-	}
-	
-	public Double valueDoubleUnknownOption(String s) throws Exception {
-		String str;
-		while(true) {
-		try{
-			str = JOptionPane.showInputDialog(frame,
-					s, "Value",JOptionPane.OK_OPTION);
+			
 			if(str == null || (str != null && ("".equals(str))))   
 			{
 			    throw new Exception();
 			}
-			if(str.equals("?")) {
+			if(unknown == true & str.equals("?")) {
 				UNKNOWN_FLAG = 1;
 				return null;
 			}else {
-				
-				return Double.parseDouble(str);
+				try {
+					return Double.valueOf(str);
+				}catch (NumberFormatException e){
+					JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}
-		}catch (NumberFormatException e){
-			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-		}
 		}
 	}
 	
-	public ArrayList<Number> valueListOption(String s, int length) throws Exception {
-		ArrayList<Number> d = new ArrayList<Number>();
-		for(int i = 0; i <length;i++) {
-				String str = valueStringOption("What is the name of the "+ i +" element of the Cartesian?");
-				Double newNum = valueDoubleOption("What is the value of the "+ i +" element of the Cartesian?");
-    			d.add(new Number(str,null,newNum));
-		}
-		return d;
-	}
 	
-	public ArrayList<Number> valueListUnknownOption(String s, int length) throws Exception {
+	public ArrayList<Number> valueListOption(String s, int length, boolean unknown) throws Exception {
 		ArrayList<Number> d = new ArrayList<Number>();
-		String str = valueStringOption("What is the name of the 1st element of the Cartesian?\nEnter a '?' if this feature is unknown.");
-		if(str.equals("?")) {
-			UNKNOWN_FLAG = 1;
-			return null;
-		}else {
-			Double newNum = valueDoubleOption("What is the name of the 1st element of the Cartesian?");
+		int j = 0;
+		
+		if(unknown == true) {
+			String str = valueStringOption("What is the name of the 0th element of the Cartesian?\nEnter a '?' if this feature is unknown.",false);
+			if(str.equals("?")) {
+				UNKNOWN_FLAG = 1;
+				return null;
+			}
+			Double newNum = valueDoubleOption("What is the name of the 0th element of the Cartesian?",false);
 			d.add(new Number(str,null,newNum));
-			for(int i = 0; i <length;i++) {
-				str = valueStringOption("What is the name of the "+ i +" element of the Cartesian?");
-				newNum = valueDoubleOption("What is the value of the "+ i +" element of the Cartesian?");
+			j++;
+		}
+		for(int i = 0+j; i <length;i++) {
+				String str = valueStringOption("What is the name of the "+ i +" element of the Cartesian?",false);
+				Double newNum = valueDoubleOption("What is the value of the "+ i +" element of the Cartesian?",false);
     			d.add(new Number(str,null,newNum));
 		}
 		return d;
-		}
 	}
+	
 	
 	// Where kNN is used
 	public Integer kOption() throws Exception {
@@ -283,12 +257,19 @@ public class GUI{
 		return str;
 	}
 	
-	public COLOURS colourOption(String s) throws Exception{
+	public COLOURS colourOption(String s, boolean unknown) throws Exception{
+		COLOURS[] set = null;
+		if(unknown = true) {
+			 set = COLOURS.values();
+		}else {
+			set = KNOWN_COLOURS;
+			
+		}
 		
 		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
 				s, "Input",
 				JOptionPane.INFORMATION_MESSAGE, null,
-				KNOWN_COLOURS, KNOWN_COLOURS[0]);
+				set, set[0]);
 		if(c == null || (c != null && ("".equals(c))))   
 		{
 		    throw new Exception();
@@ -296,32 +277,15 @@ public class GUI{
 		return c;
 	}
 	
-	public COLOURS colourUnknownOption(String s) throws Exception{
-		
-		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
-				s, "Input",
-				JOptionPane.INFORMATION_MESSAGE, null,
-				COLOURS.values(), COLOURS.values());
-		if(c == null || (c != null && ("".equals(c))))   
-		{
-		    throw new Exception();
-		}
-		if(c.equals(COLOURS.UNKNOWN)) {
-			return null;
-		}
-				return c;
-	}
-	
-	
-	public int valueIntOption(String s, int unknown) throws Exception {
+	public int valueIntOption(String s, boolean unknown) throws Exception {
 		Double d;
-		if(unknown == 0) {
-			d = valueDoubleOption(s);
-		}else {
-			d = valueDoubleUnknownOption(s);
+		if(unknown == true) {
+			d = valueDoubleOption(s,true);
 			if(d == null) {
 				return 0;
 			}
+		}else {
+			d = valueDoubleOption(s,false);
 		}
 		int i = d.intValue();
 		try {
