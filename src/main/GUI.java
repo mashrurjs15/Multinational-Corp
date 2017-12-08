@@ -1,5 +1,8 @@
 package main;
 import javax.swing.*;
+
+import main.Colour.COLOURS;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -9,14 +12,15 @@ public class GUI{
 	//private Solver controller;
 	private JList<Example> training, unsolved;
 	private JList<Feature> features;
-	private JMenu menu;
+	private JMenu menu, saveBar, featuresBar;
 	private JMenuBar menuBar;
-	private JMenuItem  reset, addFeature, removeFeature, solve;
+	private JMenuItem  reset, addFeature, removeFeature, solve, save, load;
 	private JButton addTraining, editTraining, removeTraining, addUnsolved, editUnsolved, removeUnsolved;
 	@SuppressWarnings("unused")
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
 	private JLabel trainingLabel, unsolvedLabel, featuresLabel;
-	private static final String[] TYPES = {"Number","Cartesian","Boolean"};
+	private static final String[] TYPES = {"Number","Cartesian","Boolean", "Colour", "DamagePercent"};
+	private static final COLOURS[] KNOWN_COLOURS = {COLOURS.RED, COLOURS.ORANGE,COLOURS.YELLOW,COLOURS.GREEN,COLOURS.BLUE,COLOURS.INDIGO,COLOURS.VIOLET};
 	private static final String[] TYPES_METRICS = {"Euclidian", "BooleanCompare", "Difference", "AbsoluteDifference"};
 	private int UNKNOWN_FLAG = 0;
 	
@@ -33,10 +37,14 @@ public class GUI{
 		unsolvedPane = new JScrollPane(unsolved);
 		menuBar = new JMenuBar();
 		menu = new JMenu("Menu");
+		featuresBar = new JMenu("Features add/remove");
+		saveBar = new JMenu("Save/Load");
 		solve = new JMenuItem("Solve Examples");
+		save = new JMenuItem("Save Session");
+		load = new JMenuItem("Load previous Session");
 		addFeature = new JMenuItem("Add feature");
 		removeFeature = new JMenuItem("Remove feature");
-		reset = new JMenuItem("Reset all to start again");
+		reset = new JMenuItem("Reset all lists");
 		featuresLabel = new JLabel("Features");
 		addTraining = new JButton("Add to training List");
 		editTraining = new JButton("Edit training list");
@@ -63,10 +71,14 @@ public class GUI{
 		
 		//setup all menu bars
 		menuBar.add(menu);
+		menuBar.add(saveBar);
+		menuBar.add(featuresBar);
+		saveBar.add(save);
+		saveBar.add(load);
 		menu.add(solve);
-		//menu.add(reset);
-		menu.add(addFeature);
-		menu.add(removeFeature);
+		menu.add(reset);
+		featuresBar.add(addFeature);
+		featuresBar.add(removeFeature);
 		
 		
 		
@@ -140,7 +152,7 @@ public class GUI{
 	
 	public String valueStringOption(String s) throws Exception {
 		String str = (String)JOptionPane.showInputDialog(frame,
-				"What is the value/name of the "+ s + " feature?");
+				s);
 		if(str == null || (str != null && ("".equals(str))))   
 		{
 		    throw new Exception();
@@ -151,7 +163,7 @@ public class GUI{
 	
 	public String valueStringUnknownOption(String s) throws Exception {
 		String str = (String)JOptionPane.showInputDialog(frame,
-				"What is the name of the "+ s + " feature? \nEnter '?' if it is unknown.");
+				s);
 		if(str == null || (str != null && ("".equals(str))))   
 		{
 		    throw new Exception();
@@ -166,7 +178,7 @@ public class GUI{
 	public Double valueDoubleOption(String s) throws Exception {
 		while(true) {
 			String str = (String)JOptionPane.showInputDialog(frame,
-					"What is the (Double) value of the "+s+" feature?");
+					s);
 		
 		if(str == null || (str != null && ("".equals(str))))   
 		{
@@ -185,7 +197,7 @@ public class GUI{
 		while(true) {
 		try{
 			str = JOptionPane.showInputDialog(frame,
-					"What is the (Double) value of the "+s+" feature? Enter '?' if it is unknown.", "Value",JOptionPane.OK_OPTION);
+					s, "Value",JOptionPane.OK_OPTION);
 			if(str == null || (str != null && ("".equals(str))))   
 			{
 			    throw new Exception();
@@ -203,57 +215,32 @@ public class GUI{
 		}
 	}
 	
-	public ArrayList<Double> valueListOption(String s) {
-		ArrayList<Double> d = new ArrayList<Double>();
-		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-				"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
-		while(true) {
-			int reply = JOptionPane.showConfirmDialog(frame, "Would you like to add another value?", "Another value", JOptionPane.YES_NO_OPTION);
-	        if (reply == JOptionPane.YES_OPTION) {
-	        	try{
-	    			d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-	    					"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
-	    		}catch (NumberFormatException e){
-	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-	    		}
-	        }else {
-	        	break;
-	        }
+	public ArrayList<Number> valueListOption(String s, int length) throws Exception {
+		ArrayList<Number> d = new ArrayList<Number>();
+		for(int i = 0; i <length;i++) {
+				String str = valueStringOption("What is the name of the "+ i +" element of the Cartesian?");
+				Double newNum = valueDoubleOption("What is the value of the "+ i +" element of the Cartesian?");
+    			d.add(new Number(str,null,newNum));
 		}
 		return d;
 	}
 	
-	public ArrayList<Double> valueListUnknownOption(String s) {
-		ArrayList<Double> d = new ArrayList<Double>();
-		String str;
-		str = JOptionPane.showInputDialog(frame,
-				"What is the next (Double) value of the "+s+" feature? Enter '?' if it us unknown.", "Value",JOptionPane.OK_OPTION);
-		System.out.println(str);
+	public ArrayList<Number> valueListUnknownOption(String s, int length) throws Exception {
+		ArrayList<Number> d = new ArrayList<Number>();
+		String str = valueStringOption("What is the name of the 1st element of the Cartesian?\nEnter a '?' if this feature is unknown.");
 		if(str.equals("?")) {
 			UNKNOWN_FLAG = 1;
 			return null;
 		}else {
-			try{
-				d.add(Double.valueOf(str));
-    		}catch (NumberFormatException e){
-    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-    		}
-		}
-		while(true) {
-			int reply = JOptionPane.showConfirmDialog(frame, "Would you like to add another value?", "Another value", JOptionPane.YES_NO_OPTION);
-	        if (reply == JOptionPane.YES_OPTION) {
-	        	try{
-	        		d.add(Double.valueOf(JOptionPane.showInputDialog(frame,
-	    					"What is the next (Double) value of the "+s+" feature?", "Value",JOptionPane.OK_OPTION)));
-	    			
-	    		}catch (NumberFormatException e){
-	    			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
-	    		}
-	        }else {
-	        	break;
-	        }
+			Double newNum = valueDoubleOption("What is the name of the 1st element of the Cartesian?");
+			d.add(new Number(str,null,newNum));
+			for(int i = 0; i <length;i++) {
+				str = valueStringOption("What is the name of the "+ i +" element of the Cartesian?");
+				newNum = valueDoubleOption("What is the value of the "+ i +" element of the Cartesian?");
+    			d.add(new Number(str,null,newNum));
 		}
 		return d;
+		}
 	}
 	
 	// Where kNN is used
@@ -301,12 +288,82 @@ public class GUI{
 		return str;
 	}
 	
+	public COLOURS colourOption(String s) throws Exception{
+		
+		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
+				s, "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				KNOWN_COLOURS, KNOWN_COLOURS[0]);
+		if(c == null || (c != null && ("".equals(c))))   
+		{
+		    throw new Exception();
+		}
+		return c;
+	}
+	
+	public COLOURS colourUnknownOption(String s) throws Exception{
+		
+		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
+				s, "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				COLOURS.values(), COLOURS.values());
+		if(c == null || (c != null && ("".equals(c))))   
+		{
+		    throw new Exception();
+		}
+		if(c.equals(COLOURS.UNKNOWN)) {
+			return null;
+		}
+				return c;
+	}
+	
+	
+	public int valueIntOption(String s, int unknown) throws Exception {
+		Double d;
+		if(unknown == 0) {
+			d = valueDoubleOption(s);
+		}else {
+			d = valueDoubleUnknownOption(s);
+			if(d == null) {
+				return 0;
+			}
+		}
+		int i = d.intValue();
+		try {
+			if(i<=100 || i>=0) {
+				return i;
+			}else {
+				throw new Exception();
+			}
+		}catch(Exception n) {
+			error("The value entered was not a correct percentage");
+		}
+		
+		return 0;
+	}
+	
 	public void error(Exception n) {
-		JOptionPane.showMessageDialog(frame,"There was an exception of type: " + n.toString() + "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void error(String s) {
 		JOptionPane.showMessageDialog(frame,s,"Input Error",JOptionPane.ERROR_MESSAGE);
+	}
+	 
+	public int cartesianNumber() throws Exception {
+		String str = null;
+		try {
+			str = (String)JOptionPane.showInputDialog(frame,
+					"How many points will your cartesian have?");
+			if(str == null || (str != null && ("".equals(str))))   
+			{
+			    throw new Exception();
+			}
+			return(Integer.valueOf(str));
+		}catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(frame,"The number entered must be a double!","Input Error",JOptionPane.ERROR_MESSAGE);
+		}
+		return (Integer) null;
 	}
 	
 	
@@ -447,4 +504,21 @@ public class GUI{
 	public void setRemoveUnsolved(JButton removeUnsolved) {
 		this.removeUnsolved = removeUnsolved;
 	}
+
+	public JMenuItem getSave() {
+		return save;
+	}
+
+	public void setSave(JMenuItem save) {
+		this.save = save;
+	}
+
+	public JMenuItem getLoad() {
+		return load;
+	}
+
+	public void setLoad(JMenuItem load) {
+		this.load = load;
+	}
+	
 }

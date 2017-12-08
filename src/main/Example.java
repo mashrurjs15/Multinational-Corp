@@ -1,12 +1,11 @@
 package main;
  import javax.swing.DefaultListModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Example {
-
-	List<Feature> listOfFeature;
+public class Example implements Serializable {
 	private DefaultListModel<Feature> features;
 	
 	public Example() {
@@ -20,39 +19,43 @@ public class Example {
 		return features;
 	}
 	
-	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Double> d2, String v) {
+	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Number> d2, String v, int num, Colour.COLOURS c) {
 		if(type == "Cartesian") {
-			features.addElement(new Cartesian(s,m,d2));
+			features.addElement(new Cartesian(s,m,d2,num));
 		}else if(type == "Boolean") {
 			features.addElement(new Boolean(s,m,v));
-		}else {
+		}else if (type == "Number") {
 			features.addElement(new Number(s,m,d1));
+		}else if (type == "Colour"){
+			features.addElement(new Colour(s,m,c));
+		}else {
+			features.addElement(new DamagePercent(s,m,num));
 		}
 	}
 
 	public void setFeatures(DefaultListModel<Feature> features) {
 		this.features = features;
 	}
+	
 	public Feature getUnsolvedFeature() {
 		
-		for(Feature f: listOfFeature) {
-			if(f.isEmpty()) return f;
+		for(int i = 0; i < features.size(); i++) {
+			if(features.get(i).isEmpty()) return features.get(i);
 		}
 		return null;
 	}
 	
 	public Feature getFeature(String s) {
 		
-		for (Feature f : listOfFeature) {
-			if(s.equals(f.GetName())) {
-				return f;
-			}
-		}return null;
+		for(int i = 0; i < features.size(); i++) {
+			if(s.equals(features.getElementAt(i).GetName())) return features.get(i);
+		}
+		return null;
 	}
 	
 	public Feature getFeatureIndex(int i) {
-		if(i<listOfFeature.size()) {
-			return listOfFeature.get(i);
+		if(i<features.getSize()) {
+			return features.get(i);
 		}
 		return null;
 	}
