@@ -19,9 +19,9 @@ public class Example implements Serializable {
 		return features;
 	}
 	
-	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Double> d2, String v) {
+	public void addFeature(String type, String s, Metric m, Double d1, ArrayList<Double> d2, String v, int cartNum) {
 		if(type == "Cartesian") {
-			features.addElement(new Cartesian(s,m,d2));
+			features.addElement(new Cartesian(s,m,d2,cartNum));
 		}else if(type == "Boolean") {
 			features.addElement(new Boolean(s,m,v));
 		}else {
