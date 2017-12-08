@@ -217,7 +217,7 @@ public class GUI{
 				UNKNOWN_FLAG = 1;
 				return null;
 			}
-			Double newNum = valueDoubleOption("What is the name of the 0th element of the Cartesian?",false);
+			Double newNum = valueDoubleOption("What is the value of the 0th element of the Cartesian?",false);
 			d.add(new Number(str,null,newNum));
 			j++;
 		}
