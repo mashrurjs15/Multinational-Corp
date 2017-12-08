@@ -71,9 +71,15 @@ public class Solver {
 					case "Colour":if(view.getUNKNOWN_FLAG() == 1) {
 										newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOption("What colour do you want for the feature " + s.GetName()));
 									}else {
-										newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOptionUnknown("What colour do you want for the feature " + s.GetName() + "\nSelect the 'UNKNOWN' option if the feature is unknown"));
+										newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourUnknownOption("What colour do you want for the feature " + s.GetName() + "\nSelect the 'UNKNOWN' option if the feature is unknown"));
 									}
-					break;
+									break;
+					case "DamagePercent":if(view.getUNKNOWN_FLAG() == 1) {
+										newE.addFeature( "DamagePercent",s.GetName(),s.GetMetric(),null,null, null,view.valueIntOption("What is the % of the feature "+ s.GetName()+"\n0 = no damage, 100 max damage",0),null);
+									}else {
+										newE.addFeature( "DamagePercent",s.GetName(),s.GetMetric(),null,null, null,view.valueIntOption("What is the % of the feature (0 = no damage, 100 = max damage)"+ s.GetName(), 1),null);}
+									break;
+					
 				}
 			}
 			view.setUNKNOWN_FLAG(0);

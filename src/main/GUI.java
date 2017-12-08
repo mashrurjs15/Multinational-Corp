@@ -19,7 +19,7 @@ public class GUI{
 	@SuppressWarnings("unused")
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
 	private JLabel trainingLabel, unsolvedLabel, featuresLabel;
-	private static final String[] TYPES = {"Number","Cartesian","Boolean", "Colour"};
+	private static final String[] TYPES = {"Number","Cartesian","Boolean", "Colour", "DamagePercent"};
 	private static final COLOURS[] KNOWN_COLOURS = {COLOURS.RED, COLOURS.ORANGE,COLOURS.YELLOW,COLOURS.GREEN,COLOURS.BLUE,COLOURS.INDIGO,COLOURS.VIOLET};
 	private static final String[] TYPES_METRICS = {"Euclidian", "BooleanCompare", "Difference", "AbsoluteDifference"};
 	private int UNKNOWN_FLAG = 0;
@@ -301,7 +301,7 @@ public class GUI{
 		return c;
 	}
 	
-public COLOURS colourOptionUnknown(String s) throws Exception{
+	public COLOURS colourUnknownOption(String s) throws Exception{
 		
 		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
 				s, "Input",
@@ -316,8 +316,34 @@ public COLOURS colourOptionUnknown(String s) throws Exception{
 		}
 				return c;
 	}
+	
+	
+	public int valueIntOption(String s, int unknown) throws Exception {
+		Double d;
+		if(unknown == 0) {
+			d = valueDoubleOption(s);
+		}else {
+			d = valueDoubleUnknownOption(s);
+			if(d == null) {
+				return 0;
+			}
+		}
+		int i = d.intValue();
+		try {
+			if(i<=100 || i>=0) {
+				return i;
+			}else {
+				throw new Exception();
+			}
+		}catch(Exception n) {
+			error("The value entered was not a correct percentage");
+		}
+		
+		return 0;
+	}
+	
 	public void error(Exception n) {
-		JOptionPane.showMessageDialog(frame,n.toString()+"\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "\nOne of the entries you have entered was incorrect or the process was quit early.\n Please try again","Input Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void error(String s) {
