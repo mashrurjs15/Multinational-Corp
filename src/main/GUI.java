@@ -20,6 +20,7 @@ public class GUI{
 	private JScrollPane unsolvedPane, trainingPane, featuresPane;
 	private JLabel trainingLabel, unsolvedLabel, featuresLabel;
 	private static final String[] TYPES = {"Number","Cartesian","Boolean", "Colour"};
+	private static final COLOURS[] KNOWN_COLOURS = {COLOURS.RED, COLOURS.ORANGE,COLOURS.YELLOW,COLOURS.GREEN,COLOURS.BLUE,COLOURS.INDIGO,COLOURS.VIOLET};
 	private static final String[] TYPES_METRICS = {"Euclidian", "BooleanCompare", "Difference", "AbsoluteDifference"};
 	private int UNKNOWN_FLAG = 0;
 	
@@ -287,22 +288,29 @@ public class GUI{
 		return str;
 	}
 	
-	public COLOURS colourOption(String s){
+	public COLOURS colourOption(String s) throws Exception{
 		
 		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
 				s, "Input",
 				JOptionPane.INFORMATION_MESSAGE, null,
-				COLOURS.values(), COLOURS.values());
-		
+				KNOWN_COLOURS, KNOWN_COLOURS[0]);
+		if(c == null || (c != null && ("".equals(c))))   
+		{
+		    throw new Exception();
+		}
 		return c;
 	}
 	
-public COLOURS colourOptionUnknown(String s){
+public COLOURS colourOptionUnknown(String s) throws Exception{
 		
 		COLOURS c = (COLOURS) JOptionPane.showInputDialog(frame,
 				s, "Input",
 				JOptionPane.INFORMATION_MESSAGE, null,
 				COLOURS.values(), COLOURS.values());
+		if(c == null || (c != null && ("".equals(c))))   
+		{
+		    throw new Exception();
+		}
 		if(c.equals(COLOURS.UNKNOWN)) {
 			return null;
 		}

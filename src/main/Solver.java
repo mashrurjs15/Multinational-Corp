@@ -49,12 +49,12 @@ public class Solver {
 				s = featuresModel.getFeatureList().getElementAt(i);
 				switch(s.getType()) {
 					case "Cartesian": if(view.getUNKNOWN_FLAG() == 1) {
-											f = view.valueListOption(s.GetName(),((Cartesian) s).getNumber());
-											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null,f,null,((Cartesian) s).getNumber(),null);
-										}else {
-											f = view.valueListUnknownOption(s.GetName(),((Cartesian) s).getNumber());
-											newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null, f,null,((Cartesian) s).getNumber(),null);
-										}
+										f = view.valueListOption(s.GetName(),((Cartesian) s).getNumber());
+										newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null,f,null,((Cartesian) s).getNumber(),null);
+									}else {
+										f = view.valueListUnknownOption(s.GetName(),((Cartesian) s).getNumber());
+										newE.addFeature("Cartesian",s.GetName(),s.GetMetric(),null, f,null,((Cartesian) s).getNumber(),null);
+									}
 									break;
 					case "Number": if(view.getUNKNOWN_FLAG() == 1) {
 										newE.addFeature("Number",s.GetName(),s.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + s.GetName()), null,null,0,null);
@@ -69,10 +69,10 @@ public class Solver {
 									}
 									break;
 					case "Colour":if(view.getUNKNOWN_FLAG() == 1) {
-						newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOption("What colour do you want for the feature " + s.GetName()));
-					}else {
-						newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOptionUnknown("What colour do you want for the feature " + s.GetName() + "\nEnter a '?' if this feature is unknown."));
-					}
+										newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOption("What colour do you want for the feature " + s.GetName()));
+									}else {
+										newE.addFeature( "Colour",s.GetName(),s.GetMetric(),null,null, null,0,view.colourOptionUnknown("What colour do you want for the feature " + s.GetName() + "\nSelect the 'UNKNOWN' option if the feature is unknown"));
+									}
 					break;
 				}
 			}

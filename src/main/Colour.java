@@ -1,8 +1,10 @@
 package main;
 
+import java.io.Serializable;
+
 public class Colour extends Feature{
 
-	public enum COLOURS {
+	public enum COLOURS implements Serializable{
 		RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET, UNKNOWN
 	}
 	
