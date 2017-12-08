@@ -46,6 +46,7 @@ public class kNNStrategy {
 		ArrayList<Double> maxList = new ArrayList<>(); // List of maximum value of each features from the group of training collection. Should be in the same order as the collection since it'll store in l.
 		double result = 0;
 		String ofUnsolved; // The name of the empty feature that was found in the test example.
+		finalResultKNNList = new ArrayList<Double>();
 
 		for(int i = 0; i < unsolvedExampleCollection.getExample().size(); i++) { // Iterate through the list of examples in the testing collection (eg. Testing 1 then 'check next loop')
  
@@ -57,15 +58,15 @@ public class kNNStrategy {
 			 for(int j = 0; j < solvedExampleCollection.getExample().size(); j++) {	// Iterate through the list of examples in the training collection
 				 
 				 for(int p = 0; p < solvedExampleCollection.getExample().getElementAt(j).getFeatures().size(); p++) { // Iterate through the features of training example j and save getDistance result into getDistanceCalculation
-					 if(solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p).equals(inValidCalculationFeature)) {
+					 if(solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p).GetName().equals(inValidCalculationFeature.GetName())) {
 						 if(inValidCalculationFeature.equals("Boolean")) {} // Do nothing since maxList doesn't have anything to do with Boolean
-						 else maxList.remove(p); //Remove the maxList value since we want it to match with the getDistanceCalculation for later
+						 else {}// maxList.remove(p); //Remove the maxList value since we want it to match with the getDistanceCalculation for later
 						 
 					 } // If the feature is equal to the empty testing feature, ignore and go to next feature
 					 else { // empty feature is ignored and now we figure out the getDistance with the indexed feature
 						 
 						 Feature chosenTrainingFeature = solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p); // store training feature to work with
-						 Feature chosenTestingFeature = unsolvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p); // store testing feature to work with
+						 Feature chosenTestingFeature = unsolvedExampleCollection.getExample().getElementAt(i).getFeatureIndex(p); // store testing feature to work with
 						 
 						 // Each condition checks for the Type of Feature and use the chosen metric and store it into a list of calculations
 						 if (chosenTrainingFeature.getType().equals("Boolean") && chosenTestingFeature.getType().equals("Boolean")) {
@@ -112,17 +113,20 @@ public class kNNStrategy {
 
 			 resultList = new HashMap<Double,Feature>();
 			 
-			 for(int j = 0; j < solvedExampleCollection.getExample().getSize(); j++)
-			 for (Double d : temp) {
-				 resultList.put(d, solvedExampleCollection.getExample().getElementAt(j).getFeature(ofUnsolved)); // d(t) is the key. The value is the unsolved feature solved of training example
-			 }
+			 
+			 int j = 0;
+				 for (Double d : temp) {
+					 resultList.put(d, solvedExampleCollection.getExample().getElementAt(j).getFeature(ofUnsolved)); // d(t) is the key. The value is the unsolved feature solved of training example
+					 j++;
+				 }
+			 
 			 
 			 List<Double> sortedKeys = new ArrayList<Double>(resultList.size());
 			 sortedKeys.addAll(resultList.keySet());
 			 Collections.sort(sortedKeys); // All the results are sorted from least to greatest with its corresponding feature
 			 List<Double> kKeys = new ArrayList<Double>(); 
 
-			 for (int c = 0; i < numberOfNeighbors; c++) {
+			 for (int c = 0; c < numberOfNeighbors; c++) {
 				 kKeys.add(sortedKeys.get(c)); // Only use n amount of results
 				 }
 			 for (double k : kKeys) {
@@ -130,7 +134,6 @@ public class kNNStrategy {
 				 }
 			 finalResultKNNList.add(finalKNNResult/numberOfNeighbors); // store the result of i unsolved Feature value into List.
 			 finalKNNResult = 0; // reset
-
 		 }
 		return finalResultKNNList;
 		
