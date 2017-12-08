@@ -1,45 +1,51 @@
 package main;
 
-public class Feature1 extends Feature{
+public class Colour extends Feature{
 
-	public Feature1(){
-		// new feature to be implemented for Milestone4
+	public enum COLOURS {
+		RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET
+	}
+	
+	private String name;
+	private int value;
+	private static String TYPE = "Colour";
+	
+	public Colour(String s,Metric m, COLOURS v){
+		name = s;
+		value = v.ordinal();
+		metric = m;
+
 	}
 	
 	@Override
 	public String GetName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
 	public void SetName(String s) {
-		// TODO Auto-generated method stub
-		
+		name = s;		
 	}
 
 	@Override
 	public Object GetValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return value;
 	}
 
 	@Override
 	public void SetValue(Object v) {
-		// TODO Auto-generated method stub
-		
+		value = (Integer)v;
 	}
 
 	@Override
 	public void SetMetric(Metric m) {
-		// TODO Auto-generated method stub
+		metric = m;
 		
 	}
 
 	@Override
 	public Metric GetMetric() {
-		// TODO Auto-generated method stub
-		return null;
+		return metric;
 	}
 
 	@Override
@@ -62,14 +68,12 @@ public class Feature1 extends Feature{
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return TYPE;
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return name +" (Colour)"+ "(" + metric.getName() + ")";
 	}
 
 }
