@@ -6,6 +6,8 @@ public abstract class Feature implements Serializable {
 	
 	public Metric metric;
 	
+	public boolean null_flag;
+	
 	public abstract String GetName();
 	
 	public abstract void SetName(String s);

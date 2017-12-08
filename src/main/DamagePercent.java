@@ -4,7 +4,7 @@ public class DamagePercent extends Feature{
 
 	private String name;
 	private int value;
-	private static final int NULL_VALUE = 101;
+	private static final int NULL_VALUE = -1;
 	private static final String TYPE = "DamagePercent";
 	
 	public DamagePercent(String s,Metric m) {
@@ -14,6 +14,8 @@ public class DamagePercent extends Feature{
 	}
 	
 	public DamagePercent(String s,Metric m, int v) {
+		if (v == NULL_VALUE) null_flag = true;
+		else null_flag = false;
 		name = s;
 		value = v;
 		metric = m;
@@ -36,6 +38,8 @@ public class DamagePercent extends Feature{
 
 	@Override
 	public void SetValue(Object v) {
+		if ((Integer)v == NULL_VALUE) null_flag = true;
+		else null_flag = false;
 		value = (Integer) v;
 	}
 
@@ -63,8 +67,8 @@ public class DamagePercent extends Feature{
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return null_flag;
 	}
 
 	@Override

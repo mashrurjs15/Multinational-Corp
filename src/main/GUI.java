@@ -300,7 +300,7 @@ public class GUI{
 		if(unknown == true) {
 			d = valueDoubleOption(s,true);
 			if(d == null) {
-				return 0;
+				return -1;
 			}
 		}else {
 			d = valueDoubleOption(s,false);

@@ -27,11 +27,13 @@ public class Colour extends Feature{
 			metric = m;
 			value = 9;
 			colour = null;
+			null_flag = true;
 		}else {
 			name = s;
 			value = v.ordinal();
 			metric = m;
 			colour = v;
+			null_flag = false;
 		}
 		
 
@@ -55,9 +57,11 @@ public class Colour extends Feature{
 	@Override
 	public void SetValue(Object v) {
 		colour = (COLOURS) v;
+		null_flag = false;
 		value = ((COLOURS) v).ordinal();
 		if(value == 8) {
 			value = 9;
+			null_flag = true;
 		}
 				
 	}
@@ -88,7 +92,7 @@ public class Colour extends Feature{
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return null_flag;
 	}
 
 	@Override

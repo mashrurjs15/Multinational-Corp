@@ -18,6 +18,8 @@ public class Cartesian extends Feature {
 		this.values = null;
 	}
 	public Cartesian(String s,Metric m, ArrayList<Number> value, int num) {
+		if (value == null) null_flag = true;
+		else null_flag = false;
 		name = s;
 		this.values = value;
 		this.metric = m;
@@ -47,7 +49,10 @@ public class Cartesian extends Feature {
 	}
 	
 
+	@SuppressWarnings("unchecked")
 	public void SetValue(Object v) {
+		if (v == null) null_flag = true;
+		else null_flag = false;
 		values = (ArrayList<Number>)v; 
 	}
 	
@@ -66,7 +71,7 @@ public class Cartesian extends Feature {
 
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return null_flag;
 	}
 
 	

@@ -14,6 +14,8 @@ public class Number extends Feature{
 
 	public Number(String s, Metric m, Double d) {
 
+		if (d == null) null_flag = true;
+		else null_flag = false;
 		name = s;
 		value = d;
 		metric = m;
@@ -39,6 +41,8 @@ public class Number extends Feature{
 	}
 
 	public void SetValue(Object v) {
+		if (v == null) null_flag = true;
+		else null_flag = false;
 		value = (Double)v;
 	}
 
@@ -55,7 +59,7 @@ public class Number extends Feature{
 
 	public boolean isEmpty() {
 		// TODO Auto-generated  method stub
-		return false;
+		return null_flag;
 	}
 
 	

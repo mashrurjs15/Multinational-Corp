@@ -13,6 +13,8 @@ public class Boolean extends Feature {
 	}
 	
 	public Boolean(String s,Metric m, String v) {
+		if (v == null) null_flag = true;
+		else null_flag = false;
 		name = s;
 		value = v;
 		metric = m;
@@ -38,6 +40,8 @@ public class Boolean extends Feature {
 	}
 
 	public void SetValue(Object v) {
+		if (v == null) null_flag = true;
+		else null_flag = false;
 		value = (String)v;
 		
 	}
@@ -54,7 +58,7 @@ public class Boolean extends Feature {
 
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return null_flag;
 	}
 
 	public String toString() {
