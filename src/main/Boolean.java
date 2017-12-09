@@ -1,5 +1,10 @@
 package main;
 
+/**
+ * The feature abstract class contains all functions required by Features.
+ * 
+ */
+
 public class Boolean extends Feature {
 
 	private String name, value;

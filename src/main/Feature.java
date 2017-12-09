@@ -2,10 +2,17 @@ package main;
 
 import java.io.Serializable;
 
+/**
+ * The feature abstract class contains all functions required by Features.
+ * 
+ */
+
 public abstract class Feature implements Serializable {
 
+	// the metric of the feature.
 	public Metric metric;
 
+	// null_flag used to distiguish unknown testing features.
 	public boolean null_flag;
 
 	public abstract String GetName();

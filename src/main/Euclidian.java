@@ -5,6 +5,17 @@ import java.util.ArrayList;
 
 public class Euclidian implements Metric, Serializable {
 
+	/**
+	 * This function calculates the euclidian difference between two cartesian
+	 *  features f and f2 and returns the double result.
+	 * 
+	 * @param f
+	 *            the first feature to be compared
+	 * @param f2
+	 *            the second feature to be compared
+	 *            
+	 * @return the calculated euclidian difference between the two cartesian features f and f2
+	 */
 	@Override
 	public double getDistance(Feature f, Feature f2) {
 
@@ -21,6 +32,11 @@ public class Euclidian implements Metric, Serializable {
 
 	}
 
+	/**
+	 * This function returns the Euclidian Metric formated as a string
+	 * 
+	 * @return metric formated as a string
+	 */
 	public String getName() {
 		return "Euclidian";
 	}
