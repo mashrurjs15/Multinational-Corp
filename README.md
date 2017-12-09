@@ -1,6 +1,6 @@
 # project-multinational-corps
 2017
-Milestone 3
+Milestone 4
 ----------------------------------------------------------------------------------------------------------
 HOW TO RUN THE PROGRAM:
 - Run the code as a java application
@@ -11,29 +11,19 @@ HOW TO RUN THE PROGRAM:
 - Edit or remove any by clicking on that particular example and clicking the respective button.
 - Once all examples are entered, press solve and enter the desired k value.
 
-Checkpoint 1
 
-Redesigned everything from scratch starting with:
-- The UML to make it look like the MVC architecture.
-- Updated the Feature classes: Cartesian, Boolean, Number to make it more generalised
-- Made a feature collection classes that holds all the features to be used : model
-- Made a new kNN class which works with the Solver to gives us kNN values.
-- Made a Solver class that uses the Feature collection in coordinance with the GUI : controller
-- Built a new GUI that allows user to input values: view
-- GUI interface refinement
+Checkpoints:
 
-Checkpoint 2
+- Continuation from miletone#3
+- Changed the unit tests into a package of its own with working tests
+- UML updated to provide a whole summary of the project and classes
+- Added to new features to the project:
+- Damage% and Colour classes
+- Update on the GUI to take in the new classes and implementaiton of the classes
 
-- Discussed about current program with TA and made adjustments to UML
-- UML now includes a Metric interface that contains: Feature - Cartesian, Boolean, Number with Feature equation - BooleanCompare, AbsoluteDifference, Eucidian, Difference.
-- Cartesian is also a complex feature which contains a list of finite Number feature.
-- Entity Class is refactored/renamed to Example and Example is part of ExampleCollection
-- Made some changes to classes (rebustment, loose couple)
-- KNN needs abit more work
+
 <<<<<<< HEAD
 -
-
-
 Authors + Contribution:
 
 Andrew Nguyen - UML refinement, kNN and build more on solver class, Read Me doc, model and controller refinement
@@ -95,4 +85,4 @@ Roadmap: Flexibility for Feature to Feature implementations.
 
 
 
->>>>>>> branch 'Milestone3' of https://github.com/SYSC3110/project-multinational-corps
+>>>>>>> branch 'Milestone4' of https://github.com/SYSC3110/project-multinational-corps
