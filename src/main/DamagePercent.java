@@ -1,26 +1,28 @@
 package main;
 
-public class DamagePercent extends Feature{
+public class DamagePercent extends Feature {
 
 	private String name;
 	private int value;
 	private static final int NULL_VALUE = -1;
 	private static final String TYPE = "DamagePercent";
-	
-	public DamagePercent(String s,Metric m) {
+
+	public DamagePercent(String s, Metric m) {
 		name = s;
 		value = 0;
 		metric = m;
 	}
-	
-	public DamagePercent(String s,Metric m, int v) {
-		if (v == NULL_VALUE) null_flag = true;
-		else null_flag = false;
+
+	public DamagePercent(String s, Metric m, int v) {
+		if (v == NULL_VALUE)
+			null_flag = true;
+		else
+			null_flag = false;
 		name = s;
 		value = v;
 		metric = m;
 	}
-	
+
 	@Override
 	public String GetName() {
 		return name;
@@ -38,8 +40,10 @@ public class DamagePercent extends Feature{
 
 	@Override
 	public void SetValue(Object v) {
-		if ((Integer)v == NULL_VALUE) null_flag = true;
-		else null_flag = false;
+		if ((Integer) v == NULL_VALUE)
+			null_flag = true;
+		else
+			null_flag = false;
 		value = (Integer) v;
 	}
 
@@ -54,20 +58,8 @@ public class DamagePercent extends Feature{
 	}
 
 	@Override
-	public void Strategy() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean CompareTo() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean isEmpty() {
-		
+
 		return null_flag;
 	}
 
@@ -78,10 +70,10 @@ public class DamagePercent extends Feature{
 
 	@Override
 	public String toString() {
-		if(value != 0) {
-			return value + "% ("+name+")";
-		}else {
-			return name +" (Damage%)"+ "(" + metric.getName() + ")";
+		if (value != 0) {
+			return value + "% (" + name + ")";
+		} else {
+			return name + " (Damage%)" + "(" + metric.getName() + ")";
 		}
 	}
 
