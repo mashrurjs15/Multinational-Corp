@@ -177,15 +177,17 @@ public class Solver {
 							}
 						}
 					}
-					view.setUNKNOWN_FLAG(0);
-					view.getUnsolved().repaint();
-				}catch(Exception n) {
-					if((n instanceof NullPointerException) == false) {
-						view.error(n);
-					}else {
-						//if nothing is selected print out a message saying specifically that.
-						view.error("There must be an example selected before removing one.");
+					if(view.getUNKNOWN_FLAG() == 0) {
+						throw new IOException();
 					}
+					view.setUNKNOWN_FLAG(0);
+				}
+			catch(Exception n) {
+				if(n instanceof IOException) {
+					view.error("For the unknown list, there must be an unknown feature in the example.");
+				}else {
+					view.error(n);
+				}
 				}
 					
 					//unsolved.addElement(createEntity());
@@ -409,47 +411,57 @@ public class Solver {
 				switch(feature.getType()) {
 					//for each feature in the list create a new feature and add it, to the example
 					//maybe could use generics here, also ENUMS but ran out of time.
-					case "Cartesian": if(view.getUNKNOWN_FLAG() == 1) {
-										numList = view.valueListOption(feature.GetName(),((Cartesian) feature).getNumber(),false);
-										newE.addFeature(feature.GetName(),feature.GetMetric(),numList,((Cartesian) feature).getNumber());
-									}else {
-										numList = view.valueListOption(feature.GetName(),((Cartesian) feature).getNumber(),true);
-										newE.addFeature(feature.GetName(),feature.GetMetric(),numList,((Cartesian) feature).getNumber());
-									}
-									break;
-					case "Number": if(view.getUNKNOWN_FLAG() == 1) {
-										newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + feature.GetName(),false));
-									}else {
-										newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + feature.GetName()+ "\nEnter a '?' if this feature is unknown.",true));
-									}
-									break;
-					case "Boolean":if(view.getUNKNOWN_FLAG() == 1) {
-										newE.addFeature(feature.GetName(),feature.GetMetric(), view.valueStringOption("What is the Boolean value of the feature " + feature.GetName(),false));
-									}else {
-										newE.addFeature(feature.GetName(),feature.GetMetric(), view.valueStringOption("What is the boolean value of the feature " + feature.GetName()+ "\nEnter a '?' if this feature is unknown.",true));
-									}
-									break;
-					case "Colour":if(view.getUNKNOWN_FLAG() == 1) {
-										newE.addFeature(feature.GetName(),feature.GetMetric(),view.colourOption("What colour do you want for the feature " + feature.GetName(),false));
-									}else {
-										newE.addFeature(feature.GetName(),feature.GetMetric(),view.colourOption("What colour do you want for the feature " + feature.GetName() + "\nSelect the 'UNKNOWN' option if the feature is unknown",true));
-									}
-									break;
-					case "DamagePercent":if(view.getUNKNOWN_FLAG() == 1) {
-											newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueIntOption("What is the % of the feature "+ feature.GetName()+"\n0 = no damage, 100 max damage",false));
-										}else {
-											newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueIntOption("What is the % of the feature "+ feature.GetName()+"\n0 = no damage, 100 max damage\nEnter a '?' if this feature is unknown.", true));
-										}
-									break;
-					
+					case "Cartesian": 
+						if(view.getUNKNOWN_FLAG() == 1) {
+							numList = view.valueListOption(feature.GetName(),((Cartesian) feature).getNumber(),false);
+							newE.addFeature(feature.GetName(),feature.GetMetric(),numList,((Cartesian) feature).getNumber());
+						}else {
+							numList = view.valueListOption(feature.GetName(),((Cartesian) feature).getNumber(),true);
+							newE.addFeature(feature.GetName(),feature.GetMetric(),numList,((Cartesian) feature).getNumber());
+						}
+						break;
+					case "Number": 
+						if(view.getUNKNOWN_FLAG() == 1) {
+							newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + feature.GetName(),false));
+						}else {
+							newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueDoubleOption("What is the Double value of the feature " + feature.GetName()+ "\nEnter a '?' if this feature is unknown.",true));
+						}
+						break;
+					case "Boolean":
+						if(view.getUNKNOWN_FLAG() == 1) {
+							newE.addFeature(feature.GetName(),feature.GetMetric(), view.valueStringOption("What is the Boolean value of the feature " + feature.GetName(),false));
+						}else {
+							newE.addFeature(feature.GetName(),feature.GetMetric(), view.valueStringOption("What is the boolean value of the feature " + feature.GetName()+ "\nEnter a '?' if this feature is unknown.",true));
+						}
+						break;
+					case "Colour":
+						if(view.getUNKNOWN_FLAG() == 1) {
+							newE.addFeature(feature.GetName(),feature.GetMetric(),view.colourOption("What colour do you want for the feature " + feature.GetName(),false));
+						}else {
+							newE.addFeature(feature.GetName(),feature.GetMetric(),view.colourOption("What colour do you want for the feature " + feature.GetName() + "\nSelect the 'UNKNOWN' option if the feature is unknown",true));
+						}
+						break;
+					case "DamagePercent":
+						if(view.getUNKNOWN_FLAG() == 1) {
+							newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueIntOption("What is the % of the feature "+ feature.GetName()+"\n0 = no damage, 100 max damage",false));
+						}else {
+							newE.addFeature(feature.GetName(),feature.GetMetric(),view.valueIntOption("What is the % of the feature "+ feature.GetName()+"\n0 = no damage, 100 max damage\nEnter a '?' if this feature is unknown.", true));
+						}
+						break;
+				}
+				if(view.getUNKNOWN_FLAG() == 0) {
+					throw new IOException();
 				}
 			}
 			view.setUNKNOWN_FLAG(0);
 			e.addExample(newE);
 		}catch(Exception n) {
-			view.error(n);
+			if(n instanceof IOException) {
+				view.error("For the unknown list, there must be an unknown feature in the example.");
+			}else {
+				view.error(n);
+			}
 		}
-		
 	}
 	
 	/**
