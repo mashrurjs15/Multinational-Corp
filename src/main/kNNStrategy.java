@@ -68,58 +68,7 @@ public class kNNStrategy {
 						 Feature chosenTrainingFeature = solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p); // store training feature to work with
 						 Feature chosenTestingFeature = unsolvedExampleCollection.getExample().getElementAt(i).getFeatureIndex(p); // store testing feature to work with
 						 
-						 // Each condition checks for the Type of Feature and use the chosen metric and store it into a list of calculations
-						 if (chosenTrainingFeature.getType().equals("Boolean") && chosenTestingFeature.getType().equals("Boolean")) {
-							 BooleanCompare comp = new BooleanCompare();	 
-							 result += comp.getDistance(chosenTrainingFeature, chosenTestingFeature); // Adds straight to result since we don't normalize booleans
-						 }
-						 if (chosenTrainingFeature.getType().equals("Number") && chosenTestingFeature.getType().equals("Number")) {
-							 AbsoluteDifference comp = new AbsoluteDifference();
-							 double temp4;
-							 double result2 = 0;
-	
-							 for(int v = 0; v < solvedExampleCollection.getExample().size(); v++) {
-								 temp4 = (Double)solvedExampleCollection.getExample().getElementAt(v).getFeatureIndex(p).GetValue();
-								 if(result2 < temp4) result2 = temp4;
-							 }
-							 result += comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/result2;
-						 }
-						 if (chosenTrainingFeature.getType().equals("Cartesian") && chosenTestingFeature.getType().equals("Cartesian")) {
-							 Euclidian comp = new Euclidian();
-							 Feature temp5;
-							 double result2 = 0;
-							 double temp3;
-
-							 //For this index, we know its at cartesian, thus this index stays true for every example.
-							 //To get maximum for normalize, we want to compare all distance of training to THIS test example
-							 for(int v = 0; v < solvedExampleCollection.getExample().size(); v++) {
-								 
-								 temp5 = solvedExampleCollection.getExample().getElementAt(v).getFeatureIndex(p);
-								 temp3 = comp.getDistance(temp5, chosenTestingFeature);
-								 if(result2 < temp3) result2 = temp3;
-							 }
-							 result += comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/result2;
-						 }
-						 // CONDITION FOR COLOR
-						 if(chosenTrainingFeature.getType().equals("Colour") && chosenTestingFeature.getType().equals("Colour")) {
-							 AbsoluteDifference comp = new AbsoluteDifference();
-							 double temp4;
-							 double result2 = 0;
-	
-							 for(int v = 0; v < solvedExampleCollection.getExample().size(); v++) {
-								
-								 double d = Double.parseDouble(solvedExampleCollection.getExample().getElementAt(v).getFeatureIndex(p).GetValue().toString());
-								 System.out.println(d);
-								 temp4 = d;
-								 if(result2 < temp4) result2 = temp4;
-							 }
-							 result += comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/result2;
-						 }
-						 // CONDITION FOR DAMAGE PERCENT
-						 if(chosenTrainingFeature.getType().equals("DamagePercent") && chosenTestingFeature.getType().equals("DamagePercent")) {
-							 
-						 }
-						 
+						 result += exampleComparisonCalculation(chosenTrainingFeature, chosenTestingFeature, p);				 
 					 }
 				 }
 				 temp.add(result); // add the result of that training and trainer into temp array. (Eg result for t1, then t2, then t3)
@@ -144,16 +93,85 @@ public class kNNStrategy {
 			 for (int c = 0; c < numberOfNeighbors; c++) {
 				 kKeys.add(sortedKeys.get(c)); // Only use n amount of results
 				 }
-			// if(solvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().equals("Number")) {
-			 //}
 			 
+			 double booleanTemp = 0;
 			 for (double k : kKeys) {
-				 finalKNNResult += (Double)resultList.get(k).GetValue();
+				 if(resultList.get(k).getType() == "Boolean") {
+					 booleanTemp += Double.parseDouble(resultList.get(k).GetValue().toString());
+					 if((booleanTemp/numberOfNeighbors) > 0.5) finalKNNResult = numberOfNeighbors;
+					 else finalKNNResult = 0;
 				 }
+				 else {
+					 finalKNNResult += (Double)resultList.get(k).GetValue();
+				 }
+			 }
+			 
 			 finalResultKNNList.add(finalKNNResult/numberOfNeighbors); // store the result of i unsolved Feature value into List.
 			 finalKNNResult = 0; // reset
 		 }
 		return finalResultKNNList;
 		
-	}	
+	}
+	
+	public double exampleComparisonCalculation(Feature chosenTrainingFeature, Feature chosenTestingFeature, int p) {
+		 
+		 // Each condition checks for the Type of Feature and use the chosen metric and store it into a list of calculations
+		 // CONDITION FOR BOOLEAN
+		 if (chosenTrainingFeature.getType().equals("Boolean") && chosenTestingFeature.getType().equals("Boolean")) {
+			 BooleanCompare comp = new BooleanCompare();	 
+			 return comp.getDistance(chosenTrainingFeature, chosenTestingFeature); // Adds straight to result since we don't normalize booleans
+		 }
+		 // CONDITION FOR NUMBER
+		 if (chosenTrainingFeature.getType().equals("Number") && chosenTestingFeature.getType().equals("Number")) {
+			 AbsoluteDifference comp = new AbsoluteDifference();
+			 double absTemp;
+			 double absResult = 0;
+
+			 for(int v = 0; v < solvedExampleCollection.getExample().size(); v++) {
+				 absTemp = (Double)solvedExampleCollection.getExample().getElementAt(v).getFeatureIndex(p).GetValue();
+				 if(absResult < absTemp) absResult = absTemp;
+			 }
+			 return comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/absResult;
+		 }
+		 // CONDITION FOR CARTESIAN
+		 if (chosenTrainingFeature.getType().equals("Cartesian") && chosenTestingFeature.getType().equals("Cartesian")) {
+			 Euclidian comp = new Euclidian();
+			 Feature carTemp;
+			 double carResult = 0;
+			 double carTemp2;
+
+			 //For this index, we know its at cartesian, thus this index stays true for every example.
+			 //To get maximum for normalize, we want to compare all distance of training to THIS test example
+			 for(int v = 0; v < solvedExampleCollection.getExample().size(); v++) {
+				 
+				 carTemp = solvedExampleCollection.getExample().getElementAt(v).getFeatureIndex(p);
+				 carTemp2 = comp.getDistance(carTemp, chosenTestingFeature);
+				 if(carResult < carTemp2) carResult = carTemp2;
+			 }
+			 return comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/carResult;
+		 }
+		 // CONDITION FOR COLOR
+		 if(chosenTrainingFeature.getType().equals("Colour") && chosenTestingFeature.getType().equals("Colour")) {
+			 AbsoluteDifference comp = new AbsoluteDifference();
+			 double absTemp2;
+			 double absResult2 = 0;
+
+			 for(int v = 0; v < solvedExampleCollection.getExample().size(); v++) {
+				
+				 double d = Double.parseDouble(solvedExampleCollection.getExample().getElementAt(v).getFeatureIndex(p).GetValue().toString());
+				 System.out.println(d);
+				 absTemp2 = d;
+				 if(absResult2 < absTemp2) absResult2 = absTemp2;
+			 }
+			 return comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/absResult2;
+		 }
+		 // CONDITION FOR DAMAGE PERCENT
+		 if(chosenTrainingFeature.getType().equals("DamagePercent") && chosenTestingFeature.getType().equals("DamagePercent")) {
+			 AbsoluteDifference comp = new AbsoluteDifference();
+			 double absResult3 = 100;
+
+			 return comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/absResult3;
+		 }
+		 return 0;
+	}
 }
