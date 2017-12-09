@@ -22,8 +22,7 @@ public class Colour extends Feature{
 	}
 	
 	public Colour(String s,Metric m, COLOURS v){
-		System.out.println(v.ordinal());
-		if(v.ordinal() == 7) {
+		if(v == null|| v.ordinal() == 7) {
 			name = s;
 			metric = m;
 			value = 9;

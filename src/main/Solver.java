@@ -91,9 +91,18 @@ public class Solver {
 			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 			 */
 			public void actionPerformed(ActionEvent e) {
-				  featuresModel.getFeatureList().removeElementAt(view.getFeatures().getSelectedIndex());
-			}  
-				});
+				try {
+					featuresModel.getFeatureList().removeElementAt(view.getFeatures().getSelectedIndex());
+				}catch(Exception n) {
+					if((n instanceof NullPointerException) == false) {
+						//if nothing is selected print out a message saying specifically that.
+						view.error("There must be an feature selected before removing one.");
+					}else {
+						
+						view.error(n);
+					}
+				}
+				}});
 		
 		//AddUnsolved
 		view.getAddUnsolved().addActionListener(new ActionListener() {

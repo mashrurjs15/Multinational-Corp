@@ -285,6 +285,9 @@ public class GUI{
 		{
 		    throw new Exception();
 		}
+		if(c == COLOURS.UNKNOWN) {
+			UNKNOWN_FLAG = 1;
+		}
 		return c;
 	}
 	
