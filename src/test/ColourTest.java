@@ -60,7 +60,7 @@ public class ColourTest {
 		assertEquals(4, c4.GetValue());
 		assertEquals(5, c5.GetValue());
 		assertEquals(6, c6.GetValue());
-		assertEquals(7, c7.GetValue());
+		assertEquals(9, c7.GetValue());
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class ColourTest {
 		assertEquals(3, c1.GetValue());
 		assertEquals(0, c2.GetValue());
 		assertEquals(1, c3.GetValue());
-		assertEquals(7, c4.GetValue());
+		assertEquals(9, c4.GetValue());
 	}
 
 	/**
