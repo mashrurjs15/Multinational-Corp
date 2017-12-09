@@ -177,12 +177,15 @@ public class Solver {
 							}
 						}
 					}
-					if(view.getUNKNOWN_FLAG() == 0) {
-						throw new IOException();
-					}
+					
+				
+				if(view.getUNKNOWN_FLAG() == 0) {
+					throw new IOException();
+				}else {
 					view.setUNKNOWN_FLAG(0);
 				}
-			catch(Exception n) {
+				
+			}catch(Exception n) {
 				if(n instanceof IOException) {
 					view.error("For the unknown list, there must be an unknown feature in the example.");
 				}else {
@@ -449,9 +452,10 @@ public class Solver {
 						}
 						break;
 				}
-				if(view.getUNKNOWN_FLAG() == 0) {
-					throw new IOException();
-				}
+				
+			}
+			if(view.getUNKNOWN_FLAG() == 0) {
+				throw new IOException();
 			}
 			view.setUNKNOWN_FLAG(0);
 			e.addExample(newE);
