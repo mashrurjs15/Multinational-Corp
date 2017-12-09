@@ -1,6 +1,7 @@
 # project-multinational-corps
 2017
 Milestone 4
+Author: Adam Staples, Andrew Nguyen, Eric Morrissette, Mohammad Sunny
 ----------------------------------------------------------------------------------------------------------
 HOW TO RUN THE PROGRAM:
 - Run the code as a java application
@@ -11,6 +12,37 @@ HOW TO RUN THE PROGRAM:
 - Edit or remove any by clicking on that particular example and clicking the respective button.
 - Once all examples are entered, press solve and enter the desired k value.
 
+There are still some bug and conflicts with some of the features:
+Number and Boolean should work perfectly fine.
+Color works if it is filled, but cant find empty feature "UNKNOWN" for the test example.
+Cartesian works if it is filled, but can't find the coordinates for the test example
+PercentDamage does not work, has not been implemented fully.
+
+PercentDamage, "?" for Cartesian and "UNKNOWN" for Color will not work fully.
+
+Steps/Examples to try:
+Add Feature> Choose any besides PercentDamage
+Add to training List> Input accordingly as instructed. (Boolean should only be 1 or 0)
+  -Input as many training List as you want
+Add to unsloved List> Input accordingly as isntructed. Make sure to have one with "?"
+Menu> Solve Examples> Input value no more than the amount of training examples
+A new frame should pop up a list of results for the order of Testing Example (Left to Right)
+
+
+FINAL UPDATES:
+We are aware that it is not in 100% working condition.
+- GUI has been updated and checks error
+- Documentation added for classes
+- Added two new features (PercentDamage and Color)
+- kNN step through to see how it works (May not work fully but there's step to show how it was proceeded)
+- Added new Metrics and features
+- Fixed some bugs
+- Implemented more Test cases using JUnit
+- Save and Load works
+- Make sure to start a new list if program has been changed. Load will not work since the program has been changed.
+- UML updated
+- Classes updated/patched to java standard structure
+- Resolve github issues
 
 Checkpoints:
 
