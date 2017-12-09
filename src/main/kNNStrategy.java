@@ -1,5 +1,4 @@
 package main;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,10 +28,8 @@ public class kNNStrategy {
 	 */
 	public kNNStrategy(int n, ExampleCollection unsolvedExampleCollection, ExampleCollection solvedExampleCollection) {
 		this.numberOfNeighbors = n; // n closest neighbors to compare with.
-		this.solvedExampleCollection = solvedExampleCollection; // Collection of training examples with given features.
-																// All will have the same amount of features
-		this.unsolvedExampleCollection = unsolvedExampleCollection; // Collection of unsolved test examples with one
-																	// empty feature.
+		this.solvedExampleCollection = solvedExampleCollection; // Collection of training examples with given features. All will have the same amount of features
+		this.unsolvedExampleCollection = unsolvedExampleCollection; // Collection of unsolved test examples with one empty feature.
 	}
 
 	/*
