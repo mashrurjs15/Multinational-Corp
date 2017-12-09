@@ -17,7 +17,7 @@ public class kNNStrategy {
 	
 	// Final Lists after comparing test with training.
 	private HashMap<Double, Feature> resultList; 								  // Hash map (Key: normalized result of the compared features, Feature of training example that will fill the test Feature
-	private ArrayList<Double> finalResultKNNList; 									  // List of answers for the empty feature of the test example
+	private ArrayList<Object> finalResultKNNList; 									  // List of answers for the empty feature of the test example
 	private double finalKNNResult = 0; 													  // The final KNN Result after dividing with numberOfNeighbors
 	
 	/* After constructor is called:
@@ -40,19 +40,20 @@ public class kNNStrategy {
 	 * 			 4. k then loops through kKeys and find the value of the unsolvedFeature in the training Entity and sums together
 	 * 			 5. @return gives the average of the unsolved Feature
 	 */
-	public ArrayList<Double> solveKNN() {
+	public ArrayList<Object> solveKNN() {
 		
 		 // List of result in the orders of training examples (eg. result is the trainingN with testingM)
-		ArrayList<Double> maxList = new ArrayList<>(); // List of maximum value of each features from the group of training collection. Should be in the same order as the collection since it'll store in l.
+		
 		double result = 0;
 		String ofUnsolved; // The name of the empty feature that was found in the test example.
-		finalResultKNNList = new ArrayList<Double>();
+		finalResultKNNList = new ArrayList<Object>();
 
 		for(int i = 0; i < unsolvedExampleCollection.getExample().size(); i++) { // Iterate through the list of examples in the testing collection (eg. Testing 1 then 'check next loop')
  
 			 ArrayList<Double> temp = new ArrayList<>();
+
 			 ofUnsolved = unsolvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().GetName(); // Find the unsolved feature from the testing example then find the name of that feature.
-		
+			 
 			 // ofUnsolved feature will then be avoided in calculation since none of the metric would work with the testing example due to the fact that it is empty.
 			 //Feature inValidCalculationFeature = solvedExampleCollection.getExample().getElementAt(i).getFeature(ofUnsolved); // Store the feature of the training example that can't be part of the calculation.
 
@@ -61,8 +62,6 @@ public class kNNStrategy {
 				 for(int p = 0; p < solvedExampleCollection.getExample().getElementAt(j).getFeatures().size(); p++) { // Iterate through the features of training example j and save getDistance result into getDistanceCalculation
 					 if(solvedExampleCollection.getExample().getElementAt(j).getFeatureIndex(p).GetName().equals(ofUnsolved)) {
 						 if(ofUnsolved.equals("Boolean")) {} // Do nothing since maxList doesn't have anything to do with Boolean
-						 else {}// maxList.remove(p); //Remove the maxList value since we want it to match with the getDistanceCalculation for later
-						 
 					 } // If the feature is equal to the empty testing feature, ignore and go to next feature
 					 else { // empty feature is ignored and now we figure out the getDistance with the indexed feature
 						 
@@ -102,8 +101,24 @@ public class kNNStrategy {
 							 result += comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/result2;
 						 }
 						 // CONDITION FOR COLOR
-						 
+						 if(chosenTrainingFeature.getType().equals("Colour") && chosenTestingFeature.getType().equals("Colour")) {
+							 AbsoluteDifference comp = new AbsoluteDifference();
+							 double temp4;
+							 double result2 = 0;
+	
+							 for(int v = 0; v < solvedExampleCollection.getExample().size(); v++) {
+								
+								 double d = Double.parseDouble(solvedExampleCollection.getExample().getElementAt(v).getFeatureIndex(p).GetValue().toString());
+								 System.out.println(d);
+								 temp4 = d;
+								 if(result2 < temp4) result2 = temp4;
+							 }
+							 result += comp.getDistance(chosenTrainingFeature, chosenTestingFeature)/result2;
+						 }
 						 // CONDITION FOR DAMAGE PERCENT
+						 if(chosenTrainingFeature.getType().equals("DamagePercent") && chosenTestingFeature.getType().equals("DamagePercent")) {
+							 
+						 }
 						 
 					 }
 				 }
@@ -116,11 +131,10 @@ public class kNNStrategy {
 			 
 			 
 			 int j = 0;
-				 for (Double d : temp) {
-					 resultList.put(d, solvedExampleCollection.getExample().getElementAt(j).getFeature(ofUnsolved)); // d(t) is the key. The value is the unsolved feature solved of training example
-					 j++;
+			 for (Double d : temp) {
+				 resultList.put(d, solvedExampleCollection.getExample().getElementAt(j).getFeature(ofUnsolved)); // d(t) is the key. The value is the unsolved feature solved of training example
+				 j++;
 				 }
-			 
 			 
 			 List<Double> sortedKeys = new ArrayList<Double>(resultList.size());
 			 sortedKeys.addAll(resultList.keySet());
@@ -130,6 +144,9 @@ public class kNNStrategy {
 			 for (int c = 0; c < numberOfNeighbors; c++) {
 				 kKeys.add(sortedKeys.get(c)); // Only use n amount of results
 				 }
+			// if(solvedExampleCollection.getExample().getElementAt(i).getUnsolvedFeature().equals("Number")) {
+			 //}
+			 
 			 for (double k : kKeys) {
 				 finalKNNResult += (Double)resultList.get(k).GetValue();
 				 }

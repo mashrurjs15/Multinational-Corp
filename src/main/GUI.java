@@ -338,7 +338,7 @@ public class GUI{
 	 * This function prints to the screen a pane with the results from the knn problem solution.
 	 * @param s the list of Doubles sent by the KNN solver
 	 */
-	public void printKNN(ArrayList<Double> s) {
+	public void printKNN(ArrayList<Object> s) {
 		JOptionPane.showMessageDialog(frame, "The kNN for each test in order is:" + s.toString(), "kNN List",JOptionPane.INFORMATION_MESSAGE);
 	}
 
