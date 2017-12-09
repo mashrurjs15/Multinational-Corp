@@ -446,9 +446,8 @@ public class Solver {
 					// close the files
 					in.close();
 					fileIn.close();
-				} catch (IOException | ClassNotFoundException i) {
-					i.printStackTrace();
-					view.error(i);
+				} catch (Exception n) {
+					view.error("Something went wrong with the file! Make sure it exists in the default directory!");
 					return;
 				}
 			}
