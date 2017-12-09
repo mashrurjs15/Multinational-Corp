@@ -42,6 +42,9 @@ We are aware that it is not in 100% working condition.
 - Make sure to start a new list if program has been changed. Load will not work since the program has been changed.
 - UML updated
 - Classes updated/patched to java standard structure
+- Feature is now an abstract
+- Made some enum implementation
+- Serialized
 - Resolve github issues
 
 Checkpoints:
