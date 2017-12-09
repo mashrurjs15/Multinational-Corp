@@ -1,10 +1,11 @@
 package main;
 
-public class Number extends Feature{
+public class Number extends Feature {
+
 	private String name;
 	private Double value;
 	private static final String TYPE = "Number";
-	
+
 	public Number(String s, Metric m) {
 
 		name = s;
@@ -14,16 +15,19 @@ public class Number extends Feature{
 
 	public Number(String s, Metric m, Double d) {
 
-		if (d == null) null_flag = true;
-		else null_flag = false;
+		if (d == null)
+			null_flag = true;
+		else
+			null_flag = false;
 		name = s;
 		value = d;
 		metric = m;
 	}
-	
+
 	public void SetMetric(Metric m) {
 		metric = m;
 	}
+
 	public Metric GetMetric() {
 		return metric;
 	}
@@ -31,7 +35,7 @@ public class Number extends Feature{
 	public String GetName() {
 		return name;
 	}
-	
+
 	public void SetName(String s) {
 		name = s;
 	}
@@ -41,41 +45,28 @@ public class Number extends Feature{
 	}
 
 	public void SetValue(Object v) {
-		if (v == null) null_flag = true;
-		else null_flag = false;
-		value = (Double)v;
-	}
-
-
-	public void Strategy() {
-		// TODO Auto-generated method stub
-		
-	}
- 
-	public boolean CompareTo() {
-		// TODO Auto-generated method  stub
-		return false;
+		if (v == null)
+			null_flag = true;
+		else
+			null_flag = false;
+		value = (Double) v;
 	}
 
 	public boolean isEmpty() {
-		// TODO Auto-generated  method stub
 		return null_flag;
 	}
 
-	
 	public String toString() {
-		if(value != null) {
-			return value + " ("+name+")";
-		}else {
-			return name +" (Number)"+ "(" + metric.getName() + ")";
+		if (value != null) {
+			return value + " (" + name + ")";
+		} else {
+			return name + " (Number)" + "(" + metric.getName() + ")";
 		}
-		
+
 	}
-	
+
 	public String getType() {
 		return TYPE;
 	}
 
-	
-	
 }
