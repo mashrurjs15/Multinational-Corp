@@ -1,9 +1,7 @@
 package test;
 
-
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import main.AbsoluteDifference;
@@ -12,14 +10,15 @@ import main.Difference;
 import main.Euclidian;
 import main.Number;
 
+/**
+ * @author MohammedSunny
+ *
+ */
+
 public class DifferenceTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-	
 	/**
-	 * Test method for {@link Differencer#GetDistance()}.
+	 * Test method for {@link Difference#GetDistance()}.
 	 */
 	@Test
 	public void testGetDistance() {
@@ -31,4 +30,14 @@ public class DifferenceTest {
 		assertEquals(differ.getDistance(N1, N2), 9.0, 0);
 		assertEquals(differ.getDistance(N3, N4), -5.0, 0);
 	}
+
+	/**
+	 * Test method for {@link Difference#getName()}.
+	 */
+	@Test
+	public void testGetName() {
+		Difference differ = new Difference();
+		assertEquals("Difference", differ.getName());
+	}
+
 }

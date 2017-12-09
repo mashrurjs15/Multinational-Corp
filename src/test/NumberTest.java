@@ -10,6 +10,11 @@ import main.Difference;
 import main.Euclidian;
 import main.Number;
 
+/**
+ * @author MohammedSunny
+ *
+ */
+
 public class NumberTest {
 	
 	/**
@@ -84,6 +89,9 @@ public class NumberTest {
 		assertEquals(Double.valueOf(69), n4.GetValue());
 	}
 
+	/**
+	 * Test method for {@link Number#ToString(java.lang.Object)}.
+	 */
 	@Test
 	public void testToString() {
 		Number n4 = new Number("Sunny",new Difference(), 15.0);

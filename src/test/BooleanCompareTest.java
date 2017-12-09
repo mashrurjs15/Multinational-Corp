@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import main.AbsoluteDifference;
@@ -10,12 +9,17 @@ import main.Difference;
 import main.Euclidian;
 import main.Boolean;
 import main.BooleanCompare;
+
+/**
+ * @author MohammedSunny
+ *
+ */
+
 public class BooleanCompareTest {
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
+	
+	/**
+	 * Test method for {@link BooleanCompare#GetDistance()}.
+	 */
 	@Test
 	public void testGetDistance() {
 		
@@ -28,6 +32,10 @@ public class BooleanCompareTest {
 		assertEquals(comp.getDistance(b3, b4), 0, 1);
 	}
 	
+	/**
+	 * Test method for {@link BooleanCompare#getName()}.
+	 */
+	@Test
 	public void testgetName() {
 		BooleanCompare comp = new BooleanCompare();
 		assertEquals("BooleanCompare", comp.getName());

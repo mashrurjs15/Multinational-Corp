@@ -10,6 +10,10 @@ import main.BooleanCompare;
 import main.Difference;
 import main.Euclidian;
 
+/**
+ * @author MohammedSunny
+ *
+ */
 
 public class BooleanTest {
 	
