@@ -22,7 +22,7 @@ public class Colour extends Feature{
 	}
 	
 	public Colour(String s,Metric m, COLOURS v){
-		if(v == null) {
+		if(v == null|| v.ordinal() == 7) {
 			name = s;
 			metric = m;
 			value = 9;
@@ -59,11 +59,10 @@ public class Colour extends Feature{
 		colour = (COLOURS) v;
 		null_flag = false;
 		value = ((COLOURS) v).ordinal();
-		if(value == 8) {
+		if(value == 7) {
 			value = 9;
 			null_flag = true;
-		}
-				
+		}	
 	}
 
 	@Override
